@@ -1,0 +1,27 @@
+{
+  "name": "Fint Viagens - Passagens Parceladas para o Brasil",
+  "short_name": "Fint Viagens",
+  "description": "Viaje para o Brasil pagando em até 12x sem juros. A melhor opção para residentes na Suíça.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A1628",
+  "theme_color": "#0B3D6B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["travel", "finance"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}
