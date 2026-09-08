@@ -1,14 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const steps = [
-  { num: '01', title: 'Cotar', desc: 'Preencha origem, destino e datas. Receba melhores opções em minutos via WhatsApp ou email.' },
-  { num: '02', title: 'Escolher', desc: 'Compare voos, horários e parcelamento. Escolha a melhor opção para seu bolso e agenda.' },
-  { num: '03', title: 'Viajar', desc: 'Pague em até 12x sem juros. Receba e-ticket e documentos. Suporte até o embarque.' },
+  { num: '01', titleKey: 'how_step_1_title' as const, descKey: 'how_step_1_desc' as const },
+  { num: '02', titleKey: 'how_step_2_title' as const, descKey: 'how_step_2_desc' as const },
+  { num: '03', titleKey: 'how_step_3_title' as const, descKey: 'how_step_3_desc' as const },
 ]
 
 export default function HowItWorks() {
+  const { t } = useLanguage()
+
   return (
     <section id="como-funciona" className="py-28 md:py-32 relative bg-gradient-mesh">
       <div className="max-w-7xl mx-auto px-6">
@@ -20,13 +23,15 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block px-4 py-1.5 glass rounded-full text-sm font-medium text-sky mb-4">
-            3 Passos Simples
+            {t('how_label')}
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-            Do orçamento <span className="text-sky">ao embarque</span> em minutos
+            {t('how_title_1')} <span className="text-sky">{t('how_title_2')}</span>
+            <br />
+            <span className="text-sky">{t('how_title_3')}</span>
           </h2>
           <p className="text-lg text-white/60">
-            Processo 100% digital, suporte humano quando você precisar.
+            {t('how_subtitle')}
           </p>
         </motion.div>
 
@@ -50,8 +55,8 @@ export default function HowItWorks() {
                 </motion.div>
 
                 <div className="pt-8">
-                  <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
-                  <p className="text-white/70 leading-relaxed">{step.desc}</p>
+                  <h3 className="text-2xl font-bold mb-3">{t(step.titleKey)}</h3>
+                  <p className="text-white/70 leading-relaxed">{t(step.descKey)}</p>
                 </div>
               </div>
 

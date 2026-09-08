@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2, Plane, MessageSquare, Shield } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface FlightCardProps {
   from: string
@@ -15,7 +16,11 @@ interface FlightCardProps {
 }
 
 function FlightCard({ from, to, price, installment, airline, direct, delay }: FlightCardProps) {
-  const [revealed, setRevealed] = useState(false)
+  const { t } = useLanguage()
+  const scrollToQuote = () => {
+    const el = document.getElementById('cotar')
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
     <motion.div
@@ -24,8 +29,6 @@ function FlightCard({ from, to, price, installment, airline, direct, delay }: Fl
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.4 }}
       whileHover={{ y: -4, scale: 1.02 }}
-      onMouseEnter={() => setRevealed(true)}
-      onMouseLeave={() => setRevealed(false)}
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -33,43 +36,39 @@ function FlightCard({ from, to, price, installment, airline, direct, delay }: Fl
           <span className="font-medium text-sm">{airline}</span>
         </div>
         {direct && (
-          <span className="px-2 py-0.5 bg-sky/20 text-sky text-xs font-medium rounded-full">Direto</span>
+          <span className="px-2 py-0.5 bg-sky/20 text-sky text-xs font-medium rounded-full">{t('cta_direct')}</span>
         )}
       </div>
       <div className="flex items-center justify-between mb-3">
         <div className="text-center">
           <p className="text-2xl font-bold font-display">{from}</p>
-          <p className="text-xs text-white/50">Origem</p>
+          <p className="text-xs text-white/50">{t('nav_how')}</p>
         </div>
         <div className="flex items-center gap-2 text-white/40">
           <Plane className="w-4 h-4 rotate-90" />
         </div>
         <div className="text-center">
           <p className="text-2xl font-bold font-display">{to}</p>
-          <p className="text-xs text-white/50">Destino</p>
+          <p className="text-xs text-white/50">{t('nav_destinations')}</p>
         </div>
       </div>
       <div className="border-t border-white/10 pt-3">
-        <div className="relative">
-          <p className={`text-xl font-bold font-display text-sky transition-all duration-500 ${revealed ? '' : 'blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5'}`}>
+        <div className="relative" onClick={scrollToQuote} style={{ cursor: 'pointer' }}>
+          <p className="text-xl font-bold font-display text-sky blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5 select-none pointer-events-none">
             {price}
           </p>
-          {!revealed && (
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-bg-dark/80 via-sky/20 to-bg-dark/80 rounded-lg cursor-pointer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => { e.stopPropagation(); setRevealed(true); }}
-              style={{ pointerEvents: 'auto' }}
-            >
-              <span className="text-xs font-medium text-sky/80 px-3 py-1 glass rounded-full animate-pulse">
-                Passar mouse para ver
-              </span>
-            </motion.div>
-          )}
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-bg-dark/80 via-sky/20 to-bg-dark/80 rounded-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <span className="text-xs font-medium text-sky/80 px-3 py-1 glass rounded-full animate-pulse">
+              {t('cta_step_2')}
+            </span>
+          </motion.div>
         </div>
-        <p className={`text-sm text-white/60 transition-all duration-500 ${revealed ? '' : 'blur-[4px]'}`}>
+        <p className="text-sm text-white/60 blur-[4px] select-none pointer-events-none">
           {installment}
         </p>
       </div>
@@ -78,6 +77,7 @@ function FlightCard({ from, to, price, installment, airline, direct, delay }: Fl
 }
 
 export default function Hero() {
+  const { t } = useLanguage()
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -193,6 +193,8 @@ export default function Hero() {
     }
   }, [])
 
+  const whatsappLink = `https://wa.me/41798955348?text=${encodeURIComponent(t('wa_intro'))} ${t('wa_field_type')}`
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-mesh">
       <canvas ref={canvasRef} className="absolute inset-0" aria-hidden="true" />
@@ -215,11 +217,10 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.7 }}
             >
-              Passagens para o Mundo
+              {t('hero_title_1')}
               <br />
-              <span className="text-sky">Parceladas em 12x</span>
+              <span className="text-sky">{t('hero_title_2')}</span>
               <br />
-              <span className="text-3xl md:text-4xl lg:text-5xl font-medium text-white/70">Sem Juros</span>
             </motion.h1>
 
             <motion.p
@@ -228,8 +229,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              Residente na Suíça? Voe para qualquer destino pagando em francos,
-              em até 12x sem juros no boleto. Emissão rápida, suporte multilíngue.
+              {t('hero_subtitle')}
             </motion.p>
 
             <motion.div
@@ -244,11 +244,11 @@ export default function Hero() {
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Simular Minha Viagem
+                {t('hero_cta_primary')}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </motion.a>
               <motion.a
-                href="https://wa.me/41798955348?text=Ol%C3%A1%20Fint%20Viagens%2C%20vim%20pelo%20site%20e%20gostaria%20de%20cotar%20passagens.%20%23FINT-SITE"
+                href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 px-8 py-4 glass-strong text-lg font-medium rounded-full hover:bg-white/10 transition-all border border-white/10"
@@ -268,15 +268,15 @@ export default function Hero() {
             >
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-sky" />
-                Sem entrada
+                {t('hero_benefit_1')}
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-sky" />
-                Aprovação na hora
+                {t('hero_benefit_2')}
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-sky" />
-                Suporte 7 dias
+                {t('hero_benefit_3')}
               </div>
             </motion.div>
           </motion.div>
@@ -338,14 +338,14 @@ export default function Hero() {
                 >
                   <div className="flex items-center gap-3 text-sm text-white/60">
                     <Shield className="w-5 h-5 text-sky" />
-                    <span>Compra segura • Cancelamento flexível • Suporte 24h</span>
+                    <span>Compra segura • Suporte 24h</span>
                   </div>
                   <motion.button
                     className="px-4 py-2 bg-sky/20 text-sky rounded-lg text-sm font-medium hover:bg-sky/30 transition-colors"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Ver todos os destinos
+                    {t('dest_view_all')}
                   </motion.button>
                 </motion.div>
               </div>
@@ -379,7 +379,7 @@ export default function Hero() {
           <path d="M12 8v8" />
           <path d="M8 12h8" />
         </svg>
-        <span>Explore</span>
+        <span>{t('hero_explore')}</span>
       </motion.div>
     </section>
   )

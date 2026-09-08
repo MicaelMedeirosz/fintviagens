@@ -1,8 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function TrustBar() {
+  const { t } = useLanguage()
+
   return (
     <section className="py-16 bg-bg-dark/50 border-y border-white/5 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-sky/5 to-transparent" />

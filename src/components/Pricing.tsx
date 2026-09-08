@@ -1,24 +1,24 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 import { CheckCircle2, Lock } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const plans = [
   {
-    name: 'Econômica',
+    name: 'Básica',
     price: 'A partir de CHF 890',
     installment: '12x CHF 74,17',
-    features: ['Voos com 1 conexão', 'Bagagem de mão 8kg', 'Escolha de assento padrão', 'Alteração com taxa', 'Suporte WhatsApp/Email'],
-    cta: 'Cotar Econômica',
+    features: ['Voos completos', 'Bagagem de mão', 'Assento padrão (não selecionável)', 'Suporte WhatsApp/Email'],
+    cta: 'Cotar Básica',
     popular: false,
   },
   {
-    name: 'Conforto',
+    name: 'Flex',
     price: 'A partir de CHF 1.190',
     installment: '12x CHF 99,17',
-    features: ['Voos diretos preferenciais', 'Bagagem 23kg + mão 10kg', 'Assento conforto/extra legroom', 'Alteração grátis 1x', 'Suporte prioritário 24h', 'Lounge acesso (quando disp.)'],
-    cta: 'Cotar Conforto',
+    features: ['Voos completos', 'Bagagem 23kg + mão 8kg', 'Assento padrão selecionável', 'Alteração flexível', 'Prióridade de embarque (quando disp.)'],
+    cta: 'Cotar Flex',
     popular: true,
   },
   {
@@ -31,8 +31,13 @@ const plans = [
   },
 ]
 
+const scrollToQuote = () => {
+  const el = document.getElementById('cotar')
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+}
+
 function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
-  const [revealed, setRevealed] = useState(false)
+  const { t } = useLanguage()
 
   return (
     <motion.div
@@ -42,8 +47,6 @@ function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      onMouseEnter={() => setRevealed(true)}
-      onMouseLeave={() => setRevealed(false)}
     >
       {plan.popular && (
         <motion.div
@@ -53,32 +56,29 @@ function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
           viewport={{ once: true }}
           transition={{ type: 'spring', stiffness: 200, delay: index * 0.1 + 0.3 }}
         >
-          MAIS ESCOLHIDA
+          {t('price_popular')}
         </motion.div>
       )}
 
       <div className="mb-6">
         <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-        <div className="relative">
-          <p className={`text-4xl font-bold font-display text-sky mb-1 transition-all duration-500 ${revealed ? '' : 'blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5'}`}>
+        <div className="relative" onClick={scrollToQuote} style={{ cursor: 'pointer' }}>
+          <p className="text-4xl font-bold font-display text-sky mb-1 blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5 select-none pointer-events-none">
             {plan.price}
           </p>
-          {!revealed && (
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-bg-dark/80 via-sky/20 to-bg-dark/80 rounded-lg cursor-pointer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => { e.stopPropagation(); setRevealed(true); }}
-            >
-              <span className="flex items-center gap-2 text-xs font-medium text-sky/80 px-4 py-2 glass rounded-full animate-pulse">
-                <Lock className="w-3 h-3" />
-                Passar mouse para ver
-              </span>
-            </motion.div>
-          )}
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-bg-dark/80 via-sky/20 to-bg-dark/80 rounded-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <span className="flex items-center gap-2 text-xs font-medium text-sky/80 px-4 py-2 glass rounded-full animate-pulse">
+              <Lock className="w-3 h-3" />
+              {t('price_locked')}
+            </span>
+          </motion.div>
         </div>
-        <p className={`text-white/60 transition-all duration-500 ${revealed ? '' : 'blur-[4px]'}`}>
+        <p className="text-white/60 blur-[4px] select-none pointer-events-none">
           {plan.installment}
         </p>
       </div>
@@ -112,6 +112,8 @@ function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
 }
 
 export default function Pricing() {
+  const { t } = useLanguage()
+
   return (
     <section id="planos" className="py-28 md:py-32 relative bg-gradient-mesh">
       <div className="max-w-7xl mx-auto px-6">
@@ -122,14 +124,11 @@ export default function Pricing() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-block px-4 py-1.5 glass rounded-full text-sm font-medium text-sky mb-4">
-            Planos Flexíveis
-          </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-            Escolha seu <span className="text-sky">nível de conforto</span>
+            {t('price_title_1')} <span className="text-sky">{t('price_title_2')}</span>
           </h2>
           <p className="text-lg text-white/60">
-            Todos com parcelamento em 12x sem juros. Taxas e impostos incluídos.
+            {t('price_subtitle')}
           </p>
         </motion.div>
 
@@ -145,9 +144,9 @@ export default function Pricing() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          Preços referência ida/volta ZRH/GVA → principais destinos. Valores variam conforme data, antecedência e disponibilidade.
+          {t('price_disclaimer')}
           <br />
-          Parcelamento em 12x sem juros válido para cartões emitidos na Suíça. Sujeito a aprovação de crédito.
+          {t('price_disclaimer_2')}
         </motion.p>
       </div>
     </section>

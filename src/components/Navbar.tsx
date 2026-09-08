@@ -3,15 +3,22 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { MessageSquare, ArrowRight } from 'lucide-react'
+import LanguageSelector from './LanguageSelector'
+import { useLanguage } from '@/contexts/LanguageContext'
+
+const TRACKING_CODE = '#FINT-SITE'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const whatsappLink = `https://wa.me/41798955348?text=${encodeURIComponent(t('wa_intro') + ' ' + TRACKING_CODE)}`
 
   return (
     <motion.nav
@@ -32,20 +39,24 @@ export default function Navbar() {
         </motion.a>
 
         <div className="hidden md:flex items-center gap-10">
-          {['Como Funciona', 'Destinos', 'Vantagens', 'Depoimentos', 'Contato'].map((item) => (
-            <motion.a
-              key={item}
-              href={`#${item.toLowerCase().replace('ç', 'c').replace('ã', 'a')}`}
-              className="text-sm font-medium text-white/80 hover:text-sky transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-sky after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left transition-transform duration-300"
-            >
-              {item}
-            </motion.a>
-          ))}
+          {[t('nav_how'), t('nav_destinations'), t('nav_features'), t('nav_testimonials'), t('nav_contact')].map((item) => {
+            const id = item.toLowerCase().replace('ç', 'c').replace('ã', 'a')
+            return (
+              <motion.a
+                key={item}
+                href={`#${id}`}
+                className="text-sm font-medium text-white/80 hover:text-sky transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-sky after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left transition-transform duration-300"
+              >
+                {item}
+              </motion.a>
+            )
+          })}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <LanguageSelector />
           <motion.a
-            href="https://wa.me/41798955348?text=Ol%C3%A1%20Fint%20Viagens%2C%20vim%20pelo%20site%20e%20gostaria%20de%20cotar%20passagens%20para%20o%20Brasil.%20%23FINT-SITE"
+            href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:flex items-center gap-2 px-4 py-2 glass rounded-full text-sm font-medium hover:bg-white/10 transition-colors"
@@ -53,7 +64,7 @@ export default function Navbar() {
             whileTap={{ scale: 0.98 }}
           >
             <MessageSquare className="w-4 h-4" />
-            WhatsApp
+            {t('nav_whatsapp')}
           </motion.a>
           <motion.a
             href="#cotar"
@@ -61,7 +72,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
           >
-            Cotar Agora
+            {t('nav_cta')}
             <ArrowRight className="w-4 h-4" />
           </motion.a>
         </div>

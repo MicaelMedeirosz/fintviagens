@@ -2,15 +2,18 @@
 
 import { motion } from 'framer-motion'
 import { Shield, CreditCard, BadgeCheck, MessageSquare, Instagram, Facebook, Linkedin } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const footerLinks = {
   Empresa: ['Sobre Nós', 'Como Funciona', 'Parceiros', 'Carreiras', 'Imprensa', 'Blog'],
   Ajuda: ['Central de Ajuda', 'Perguntas Frequentes', 'Política de Cancelamento', 'Termos de Uso', 'Privacidade', 'Contato'],
   Destinos: ['São Paulo (GRU)', 'Nova York (JFK)', 'Lisboa (LIS)', 'Madrid (MAD)', 'Paris (CDG)', 'Ver todos (100+)'],
-  Contato: ['WhatsApp: +41 79 895 53 48', 'Telefone: +41 44 123 45 67', 'Email: contato@fintviagens.ch', 'Endereço: Bahnhofstrasse 12, 8001 Zurique', 'Seg-Sex 08:00-20:00', 'Sáb 09:00-16:00'],
+  Contato: ['WhatsApp: +41 79 895 53 48', 'Telefone: +41 79 391 98 28', 'Email: info@fintviagens.ch', 'Endereço: Zeughausstrasse 31, 8004 Zürich', 'Seg-Sex 08:00-20:00', 'Sáb 09:00-16:00'],
 }
 
 export default function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer className="bg-bg-dark border-t border-white/5 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
@@ -25,14 +28,15 @@ export default function Footer() {
           >
             <img src="/logo.svg" alt="Fint Viagens" className="h-12 mb-6" />
             <p className="text-white/60 text-sm leading-relaxed mb-6">
-              A ponte entre a Suíça e o mundo. Passagens parceladas, suporte multilíngue, 
-              feito por quem entende o viajante.
+              {t('footer_tagline')}
             </p>
             <div className="flex gap-4">
               {['instagram', 'facebook', 'linkedin', 'whatsapp'].map((social) => (
                 <motion.a
                   key={social}
-                  href="#"
+                  href={social === 'instagram' ? 'https://www.instagram.com/fintviagens/' : '#'}
+                  target={social === 'instagram' ? '_blank' : undefined}
+                  rel={social === 'instagram' ? 'noopener noreferrer' : undefined}
                   className="w-10 h-10 glass rounded-xl flex items-center justify-center text-white/60 hover:text-sky hover:bg-white/10 transition-all"
                   whileHover={{ scale: 1.1, rotate: 3 }}
                   whileTap={{ scale: 0.95 }}
@@ -76,21 +80,13 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
           <motion.p className="text-white/40 text-sm" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-            © 2024 Fint Viagens. Todos os direitos reservados. Fint Viagens AG • CH-8001 Zurique • CHE-123.456.789
+            © 2024 Fint Viagens. Todos os direitos reservados.
           </motion.p>
           
           <motion.div className="flex items-center gap-8 text-sm text-white/40" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
             <span className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
-              Compra Segura
-            </span>
-            <span className="flex items-center gap-2">
-              <CreditCard className="w-4 h-4" />
-              12x Sem Juros
-            </span>
-            <span className="flex items-center gap-2">
-              <BadgeCheck className="w-4 h-4" />
-              IATA Certificado
+              {t('footer_secure')}
             </span>
           </motion.div>
         </div>

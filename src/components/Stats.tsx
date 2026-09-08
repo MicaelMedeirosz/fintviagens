@@ -1,22 +1,25 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const stats = [
-  { value: '50.000+', label: 'Clientes Satisfeitos' },
-  { value: '98%', label: 'Taxa de Aprovação' },
-  { value: '12x', label: 'Sem Juros' },
-  { value: '24h', label: 'Emissão Rápida' },
+  { value: '1.000+', labelKey: 'stat_1' as const },
+  { value: '98%', labelKey: 'stat_2' as const },
+  { value: '12x', labelKey: 'stat_3' as const },
+  { value: '48h', labelKey: 'stat_4' as const },
 ]
 
 export default function Stats() {
+  const { t } = useLanguage()
+
   return (
     <section className="py-20 bg-bg-dark/50 border-y border-white/5 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <motion.div
-              key={stat.label}
+              key={stat.labelKey}
               className="text-center"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -32,7 +35,7 @@ export default function Stats() {
               >
                 {stat.value}
               </motion.div>
-              <p className="text-white/70 font-medium">{stat.label}</p>
+              <p className="text-white/70 font-medium">{t(stat.labelKey)}</p>
             </motion.div>
           ))}
         </div>

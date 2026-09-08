@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import './globals.css'
+import { LanguageProvider } from '@/contexts/LanguageContext'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -18,8 +19,8 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: 'Fint Viagens | Passagens Parceladas para Residentes na Suíça',
-  description: 'Viaje para qualquer destino pagando em até 12x sem juros. A melhor opção para residentes na Suíça voarem pelo mundo.',
-  keywords: ['passagens aéreas', 'parcelado', 'Suíça', 'viagens', '12x sem juros', 'internacional'],
+  description: 'Viaje para qualquer destino pagando em até 12x. A melhor opção para residentes na Suíça voarem pelo mundo.',
+  keywords: ['passagens aéreas', 'parcelado', 'Suíça', 'viagens', '12x ', 'internacional'],
   authors: [{ name: 'Fint Viagens' }],
   creator: 'Fint Viagens',
   publisher: 'Fint Viagens',
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     url: 'https://fintviagens.ch',
     siteName: 'Fint Viagens',
     title: 'Fint Viagens | Passagens Parceladas para Residentes na Suíça',
-    description: 'Viaje para qualquer destino pagando em até 12x sem juros.',
+    description: 'Viaje para qualquer destino pagando em até 12x.',
     images: [
       {
         url: '/og-image.jpg',
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Fint Viagens | Passagens Parceladas',
-    description: 'Viaje para qualquer destino pagando em até 12x sem juros.',
+    description: 'Viaje para qualquer destino pagando em até 12x.',
     images: ['/og-image.jpg'],
   },
   verification: {
@@ -64,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -73,7 +74,9 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="bg-bg-dark text-white antialiased">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   )

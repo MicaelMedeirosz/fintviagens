@@ -2,12 +2,13 @@
 
 import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const testimonials = [
-  { name: 'Maria Santos', location: 'Zurique → Nova York', text: 'Melhor experiência de compra de passagens em 10 anos morando na Suíça. Parcelado em 10x, emitido no mesmo dia, suporte impecável.', rating: 5 },
-  { name: 'João Silva', location: 'Genebra → Lisboa', text: 'Equipe entende a burocracia suíça. Me ajudaram com visto, documentação e ainda conseguiram voo direto. Recomendo de olhos fechados.', rating: 5 },
-  { name: 'Ana Costa', location: 'Basileia → Dubai', text: 'Preço justo, parcelamento real sem pegadinha. Já indiquei para 5 colegas de trabalho. Voltarei a comprar com certeza.', rating: 5 },
-  { name: 'Pedro Oliveira', location: 'Bern → Tóquio', text: 'Atendimento humanizado, resolvem tudo por WhatsApp. Emissão rápida, melhor custo-benefício que encontrei na Suíça toda.', rating: 5 },
+  { name: 'Maria Santos', location: 'Zurich → New York', text: 'Melhor experiência de compra de passagens em 10 anos morando na Suíça. Parcelado em 10x, emitido no mesmo dia, suporte impecável.', rating: 5 },
+  { name: 'João Silva', location: 'Geneva → Lisbon', text: 'Equipe entende a burocracia suíça. Me ajudaram com visto, documentação e ainda conseguiram voo direto. Recomendo de olhos fechados.', rating: 5 },
+  { name: 'Ana Costa', location: 'Basel → Dubai', text: 'Preço justo, parcelamento real sem pegadinha. Já indiquei para 5 colegas de trabalho. Voltarei a comprar com certeza.', rating: 5 },
+  { name: 'Pedro Oliveira', location: 'Bern → Tokyo', text: 'Atendimento humanizado, resolvem tudo por WhatsApp. Emissão rápida, melhor custo-benefício que encontrei na Suíça toda.', rating: 5 },
 ]
 
 function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
@@ -28,6 +29,8 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
 }
 
 export default function Testimonials() {
+  const { t } = useLanguage()
+
   return (
     <section id="depoimentos" className="py-28 md:py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -39,13 +42,13 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block px-4 py-1.5 glass rounded-full text-sm font-medium text-sky mb-4">
-            Depoimentos Reais
+            {t('test_label')}
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-            O que nossos <span className="text-sky">clientes dizem</span>
+            {t('test_title_1')} <span className="text-sky">{t('test_title_2')}</span>
           </h2>
           <p className="text-lg text-white/60">
-            Mais de 50.000 viajantes já confiaram na Fint Viagens.
+            {t('test_subtitle')}
           </p>
         </motion.div>
 
