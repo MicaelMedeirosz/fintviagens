@@ -27,6 +27,8 @@ export const translations = {
     hero_benefit_1: 'Sem entrada',
     hero_benefit_2: 'Aprovação na hora',
     hero_benefit_3: 'Suporte 7 dias',
+    hero_secure: 'Compra segura',
+    hero_support_24h: 'Suporte 24h',
     hero_explore: 'Explore',
 
     trust_partners: 'Parceiros',
@@ -71,6 +73,22 @@ export const translations = {
     test_title_1: 'O que nossos',
     test_title_2: 'clientes dizem',
     test_subtitle: 'Mais de 1.000 viajantes já confiaram na Fint Viagens.',
+
+    testimonial_1_name: 'Maria Santos',
+    testimonial_1_location: 'Zurich → New York',
+    testimonial_1_text: 'Melhor experiência de compra de passagens em 10 anos morando na Suíça. Parcelado em 10x, emitido no mesmo dia, suporte impecável.',
+
+    testimonial_2_name: 'João Silva',
+    testimonial_2_location: 'Geneva → Lisbon',
+    testimonial_2_text: 'Equipe entende a burocracia suíça. Me ajudaram com visto, documentação e ainda conseguiram voo direto. Recomendo de olhos fechados.',
+
+    testimonial_3_name: 'Ana Costa',
+    testimonial_3_location: 'Basel → Dubai',
+    testimonial_3_text: 'Preço justo, parcelamento real sem pegadinha. Já indiquei para 5 colegas de trabalho. Voltarei a comprar com certeza.',
+
+    testimonial_4_name: 'Pedro Oliveira',
+    testimonial_4_location: 'Bern → Tokyo',
+    testimonial_4_text: 'Atendimento humanizado, resolvem tudo por WhatsApp. Emissão rápida, melhor custo-benefício que encontrei na Suíça toda.',
 
     stat_1: 'Clientes Satisfeitos',
     stat_2: 'Taxa de Aprovação',
@@ -165,6 +183,9 @@ export const translations = {
     footer_address: 'Endereço: Zeughausstrasse 31, 8004 Zürich',
     footer_hours_week: 'Seg-Sex 08:00-20:00',
     footer_hours_sat: 'Sáb 09:00-16:00',
+    footer_whatsapp: 'WhatsApp: +41 79 895 53 48',
+    footer_phone: 'Telefone: +41 79 391 98 28',
+    footer_email: 'Email: info@fintviagens.ch',
     footer_copyright: 'Todos os direitos reservados.',
     footer_secure: 'Compra Segura',
     footer_installments: '12x Sem Juros',
@@ -208,6 +229,8 @@ export const translations = {
     hero_benefit_1: 'Ohne Anzahlung',
     hero_benefit_2: 'Sofortige Genehmigung',
     hero_benefit_3: '7 Tage Support',
+    hero_secure: 'Sicherer Kauf',
+    hero_support_24h: '24h Support',
     hero_explore: 'Entdecken',
 
     trust_partners: 'Partner',
@@ -253,6 +276,22 @@ export const translations = {
     test_title_2: 'Kunden sagen',
     test_subtitle: 'Mehr als 1.000 Reisende vertrauen bereits auf Fint Viagens.',
 
+    testimonial_1_name: 'Maria Santos',
+    testimonial_1_location: 'Zürich → New York',
+    testimonial_1_text: 'Beste Flugkauf-Erfahrung in 10 Jahren Schweiz. In 10 Raten, am selben Tag ausgestellt, makelloser Support.',
+
+    testimonial_2_name: 'João Silva',
+    testimonial_2_location: 'Genf → Lissabon',
+    testimonial_2_text: 'Team versteht Schweizer Bürokratie. Helfen bei Visum, Dokumentation und bekamen Direktflug. Uneingeschränkt empfehlenswert.',
+
+    testimonial_3_name: 'Ana Costa',
+    testimonial_3_location: 'Basel → Dubai',
+    testimonial_3_text: 'Fairer Preis, echte Ratenzahlung ohne Haken. Habe 5 Kollegen empfohlen. Werde sicher wieder buchen.',
+
+    testimonial_4_name: 'Pedro Oliveira',
+    testimonial_4_location: 'Bern → Tokio',
+    testimonial_4_text: 'Menschlicher Service, alles per WhatsApp gelöst. Schnelle Ausstellung, bestes Preis-Leistungs-Verhältnis in der ganzen Schweiz.',
+
     stat_1: 'Zufriedene Kunden',
     stat_2: 'Genehmigungsrate',
     stat_3: 'Per Rechnung',
@@ -264,8 +303,8 @@ export const translations = {
     price_subtitle: 'Alle mit 12 Raten. Steuern und Gebühren inklusive.',
     price_popular: 'AM BELIEBTESTEN',
     price_locked: 'Klicken zum Anfragen',
-    price_disclaimer: 'Valores variam conforme data, antecedência e disponibilidade.',
-    price_disclaimer_2: 'Parcelamento em 12x residentes na Suíça. Sujeito a aprovação de crédito.',
+    price_disclaimer: 'Preise variieren je nach Datum, Vorlaufzeit und Verfügbarkeit.',
+    price_disclaimer_2: '12 Raten für Schweiz-Bewohner. Bonitätsprüfung erforderlich.',
 
     price_plan_basica: 'Basis',
     price_plan_flex: 'Flex',
@@ -345,6 +384,9 @@ export const translations = {
     footer_address: 'Adresse: Zeughausstrasse 31, 8004 Zürich',
     footer_hours_week: 'Mo-Fr 08:00-20:00',
     footer_hours_sat: 'Sa 09:00-16:00',
+    footer_whatsapp: 'WhatsApp: +41 79 895 53 48',
+    footer_phone: 'Telefon: +41 79 391 98 28',
+    footer_email: 'E-Mail: info@fintviagens.ch',
     footer_copyright: 'Alle Rechte vorbehalten.',
     footer_secure: 'Sicherer Kauf',
     footer_installments: '12x Ohne Zinsen',
@@ -388,6 +430,8 @@ export const translations = {
     hero_benefit_1: 'No down payment',
     hero_benefit_2: 'Instant approval',
     hero_benefit_3: '7-day support',
+    hero_secure: 'Secure purchase',
+    hero_support_24h: '24h support',
     hero_explore: 'Explore',
 
     trust_partners: 'Partners',
@@ -432,6 +476,22 @@ export const translations = {
     test_title_1: 'What our',
     test_title_2: 'customers say',
     test_subtitle: 'Over 1,000 travelers have trusted Fint Viagens.',
+
+    testimonial_1_name: 'Maria Santos',
+    testimonial_1_location: 'Zurich → New York',
+    testimonial_1_text: 'Best flight booking experience in 10 years living in Switzerland. 10 installments, issued same day, flawless support.',
+
+    testimonial_2_name: 'João Silva',
+    testimonial_2_location: 'Geneva → Lisbon',
+    testimonial_2_text: 'Team understands Swiss bureaucracy. Helped with visa, documentation and got a direct flight. Highly recommended.',
+
+    testimonial_3_name: 'Ana Costa',
+    testimonial_3_location: 'Basel → Dubai',
+    testimonial_3_text: 'Fair price, real installments no catch. Recommended to 5 coworkers. Will definitely buy again.',
+
+    testimonial_4_name: 'Pedro Oliveira',
+    testimonial_4_location: 'Bern → Tokyo',
+    testimonial_4_text: 'Humanized service, everything solved via WhatsApp. Fast issuance, best value for money in all of Switzerland.',
 
     stat_1: 'Happy Customers',
     stat_2: 'Approval Rate',
@@ -525,6 +585,9 @@ export const translations = {
     footer_address: 'Address: Zeughausstrasse 31, 8004 Zurich',
     footer_hours_week: 'Mon-Fri 08:00-20:00',
     footer_hours_sat: 'Sat 09:00-16:00',
+    footer_whatsapp: 'WhatsApp: +41 79 895 53 48',
+    footer_phone: 'Phone: +41 79 391 98 28',
+    footer_email: 'Email: info@fintviagens.ch',
     footer_copyright: 'All rights reserved.',
     footer_secure: 'Secure Purchase',
     footer_installments: '12x No Interest',
@@ -568,6 +631,8 @@ export const translations = {
     hero_benefit_1: 'Sin entrada',
     hero_benefit_2: 'Aprobación inmediata',
     hero_benefit_3: 'Soporte 7 días',
+    hero_secure: 'Compra segura',
+    hero_support_24h: 'Soporte 24h',
     hero_explore: 'Explorar',
 
     trust_partners: 'Socios',
@@ -612,6 +677,22 @@ export const translations = {
     test_title_1: 'Lo que dicen',
     test_title_2: 'nuestros clientes',
     test_subtitle: 'Más de 1.000 viajeros ya confiaron en Fint Viagens.',
+
+    testimonial_1_name: 'Maria Santos',
+    testimonial_1_location: 'Zúrich → Nueva York',
+    testimonial_1_text: 'Mejor experiencia de compra de pasajes en 10 años viviendo en Suiza. En 10 cuotas, emitido el mismo día, soporte impecable.',
+
+    testimonial_2_name: 'João Silva',
+    testimonial_2_location: 'Ginebra → Lisboa',
+    testimonial_2_text: 'El equipo entiende la burocracia suiza. Me ayudaron con visado, documentación y consiguieron vuelo directo. Recomiendo de ojos cerrados.',
+
+    testimonial_3_name: 'Ana Costa',
+    testimonial_3_location: 'Basilea → Dubái',
+    testimonial_3_text: 'Precio justo, cuotas reales sin trampa. Ya recomendé a 5 compañeros de trabajo. Volveré a comprar sin duda.',
+
+    testimonial_4_name: 'Pedro Oliveira',
+    testimonial_4_location: 'Berna → Tokio',
+    testimonial_4_text: 'Atención humanizada, resuelven todo por WhatsApp. Emisión rápida, mejor relación calidad-precio que encontré en toda Suiza.',
 
     stat_1: 'Clientes satisfechos',
     stat_2: 'Tasa de aprobación',
@@ -705,6 +786,9 @@ export const translations = {
     footer_address: 'Dirección: Zeughausstrasse 31, 8004 Zúrich',
     footer_hours_week: 'Lun-Vie 08:00-20:00',
     footer_hours_sat: 'Sáb 09:00-16:00',
+    footer_whatsapp: 'WhatsApp: +41 79 895 53 48',
+    footer_phone: 'Teléfono: +41 79 391 98 28',
+    footer_email: 'Email: info@fintviagens.ch',
     footer_copyright: 'Todos los derechos reservados.',
     footer_secure: 'Compra segura',
     footer_installments: '12x Sin intereses',

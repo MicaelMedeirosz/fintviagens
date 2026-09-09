@@ -4,15 +4,43 @@ import { motion } from 'framer-motion'
 import { Shield, CreditCard, BadgeCheck, MessageSquare, Instagram, Facebook, Linkedin } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const footerLinks = {
-  Empresa: ['Sobre Nós', 'Como Funciona', 'Parceiros', 'Carreiras', 'Imprensa', 'Blog'],
-  Ajuda: ['Central de Ajuda', 'Perguntas Frequentes', 'Política de Cancelamento', 'Termos de Uso', 'Privacidade', 'Contato'],
-  Destinos: ['São Paulo (GRU)', 'Nova York (JFK)', 'Lisboa (LIS)', 'Madrid (MAD)', 'Paris (CDG)', 'Ver todos (100+)'],
-  Contato: ['WhatsApp: +41 79 895 53 48', 'Telefone: +41 79 391 98 28', 'Email: info@fintviagens.ch', 'Endereço: Zeughausstrasse 31, 8004 Zürich', 'Seg-Sex 08:00-20:00', 'Sáb 09:00-16:00'],
-}
-
 export default function Footer() {
   const { t } = useLanguage()
+
+  const footerLinks = {
+    [t('footer_company')]: [
+      t('footer_about'),
+      t('footer_how'),
+      t('footer_partners'),
+      t('footer_careers'),
+      t('footer_press'),
+      t('footer_blog'),
+    ],
+    [t('footer_help')]: [
+      t('footer_help_center'),
+      t('footer_faq'),
+      t('footer_cancellation'),
+      t('footer_terms'),
+      t('footer_privacy'),
+      t('footer_contact_link'),
+    ],
+    [t('footer_dest')]: [
+      'São Paulo (GRU)',
+      'Nova York (JFK)',
+      'Lisboa (LIS)',
+      'Madrid (MAD)',
+      'Paris (CDG)',
+      t('footer_view_all'),
+    ],
+    [t('footer_contact')]: [
+      t('footer_whatsapp'),
+      t('footer_phone'),
+      t('footer_email'),
+      t('footer_address'),
+      t('footer_hours_week'),
+      t('footer_hours_sat'),
+    ],
+  }
 
   return (
     <footer className="bg-bg-dark border-t border-white/5 relative overflow-hidden">
@@ -80,7 +108,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
           <motion.p className="text-white/40 text-sm" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-            © 2024 Fint Viagens. Todos os direitos reservados.
+            © 2024 Fint Viagens. {t('footer_copyright')}
           </motion.p>
           
           <motion.div className="flex items-center gap-8 text-sm text-white/40" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>

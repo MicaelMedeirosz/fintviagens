@@ -4,14 +4,7 @@ import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const testimonials = [
-  { name: 'Maria Santos', location: 'Zurich → New York', text: 'Melhor experiência de compra de passagens em 10 anos morando na Suíça. Parcelado em 10x, emitido no mesmo dia, suporte impecável.', rating: 5 },
-  { name: 'João Silva', location: 'Geneva → Lisbon', text: 'Equipe entende a burocracia suíça. Me ajudaram com visto, documentação e ainda conseguiram voo direto. Recomendo de olhos fechados.', rating: 5 },
-  { name: 'Ana Costa', location: 'Basel → Dubai', text: 'Preço justo, parcelamento real sem pegadinha. Já indiquei para 5 colegas de trabalho. Voltarei a comprar com certeza.', rating: 5 },
-  { name: 'Pedro Oliveira', location: 'Bern → Tokyo', text: 'Atendimento humanizado, resolvem tudo por WhatsApp. Emissão rápida, melhor custo-benefício que encontrei na Suíça toda.', rating: 5 },
-]
-
-function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
+function TestimonialCard({ testimonial }: { testimonial: { name: string; location: string; text: string; rating: number } }) {
   return (
     <div className="glass-strong rounded-2xl p-8 h-full transition-all duration-500 hover:shadow-2xl hover:shadow-sky/10 hover:border-sky/30">
       <div className="flex gap-1 mb-4">
@@ -30,6 +23,13 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
 
 export default function Testimonials() {
   const { t } = useLanguage()
+
+  const testimonials = [
+    { name: t('testimonial_1_name'), location: t('testimonial_1_location'), text: t('testimonial_1_text'), rating: 5 },
+    { name: t('testimonial_2_name'), location: t('testimonial_2_location'), text: t('testimonial_2_text'), rating: 5 },
+    { name: t('testimonial_3_name'), location: t('testimonial_3_location'), text: t('testimonial_3_text'), rating: 5 },
+    { name: t('testimonial_4_name'), location: t('testimonial_4_location'), text: t('testimonial_4_text'), rating: 5 },
+  ]
 
   return (
     <section id="depoimentos" className="py-28 md:py-32 relative">

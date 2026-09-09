@@ -338,7 +338,7 @@ export default function Hero() {
                 >
                   <div className="flex items-center gap-3 text-sm text-white/60">
                     <Shield className="w-5 h-5 text-sky" />
-                    <span>Compra segura • Suporte 24h</span>
+                    <span>{t('hero_secure')} &bull; {t('hero_support_24h')}</span>
                   </div>
                   <motion.button
                     className="px-4 py-2 bg-sky/20 text-sky rounded-lg text-sm font-medium hover:bg-sky/30 transition-colors"

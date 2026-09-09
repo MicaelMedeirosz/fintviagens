@@ -4,44 +4,45 @@ import { motion } from 'framer-motion'
 import { CheckCircle2, Lock } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const plans = [
-  {
-    name: 'Básica',
+const planKeys = {
+  basica: {
+    name: 'price_plan_basica',
     price: 'A partir de CHF 890',
     installment: '12x CHF 74,17',
-    features: ['Voos completos', 'Bagagem de mão', 'Assento padrão (não selecionável)', 'Suporte WhatsApp/Email'],
-    cta: 'Cotar Básica',
+    features: ['price_feature_basica_1', 'price_feature_basica_2', 'price_feature_basica_3', 'price_feature_basica_4'],
+    cta: 'price_cta_basica',
     popular: false,
   },
-  {
-    name: 'Flex',
+  flex: {
+    name: 'price_plan_flex',
     price: 'A partir de CHF 1.190',
     installment: '12x CHF 99,17',
-    features: ['Voos completos', 'Bagagem 23kg + mão 8kg', 'Assento padrão selecionável', 'Alteração flexível', 'Prióridade de embarque (quando disp.)'],
-    cta: 'Cotar Flex',
+    features: ['price_feature_flex_1', 'price_feature_flex_2', 'price_feature_flex_3', 'price_feature_flex_4', 'price_feature_flex_5'],
+    cta: 'price_cta_flex',
     popular: true,
   },
-  {
-    name: 'Executiva',
+  premium: {
+    name: 'price_plan_premium',
     price: 'A partir de CHF 3.890',
     installment: '12x CHF 324,17',
-    features: ['Classe Executiva', 'Bagagem 2x 32kg + mão', 'Assento cama flat-bed', 'Alterações ilimitadas', 'Concierge dedicado', 'Lounge premium garantido', 'Transfer aeroporto incluso'],
-    cta: 'Cotar Executiva',
+    features: ['price_feature_premium_1', 'price_feature_premium_2', 'price_feature_premium_3', 'price_feature_premium_4', 'price_feature_premium_5', 'price_feature_premium_6', 'price_feature_premium_7'],
+    cta: 'price_cta_premium',
     popular: false,
   },
-]
+} as const
 
 const scrollToQuote = () => {
   const el = document.getElementById('cotar')
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 
-function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
+function PlanCard({ planKey, index }: { planKey: keyof typeof planKeys; index: number }) {
   const { t } = useLanguage()
+  const plan = planKeys[planKey]
 
   return (
     <motion.div
-      key={plan.name}
+      key={planKey}
       className={`relative rounded-2xl p-8 flex flex-col h-full group ${plan.popular ? 'glass-strong border-2 border-sky/50 shadow-2xl shadow-sky/20' : 'glass transition-all duration-500 hover:shadow-2xl hover:shadow-sky/10 hover:border-sky/30'}`}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +62,7 @@ function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
       )}
 
       <div className="mb-6">
-        <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+        <h3 className="text-xl font-bold mb-2">{t(plan.name)}</h3>
         <div className="relative" onClick={scrollToQuote} style={{ cursor: 'pointer' }}>
           <p className="text-4xl font-bold font-display text-sky mb-1 blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5 select-none pointer-events-none">
             {plan.price}
@@ -84,9 +85,9 @@ function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
       </div>
 
       <ul className="flex-1 space-y-4 mb-8">
-        {plan.features.map((feature, i) => (
+        {plan.features.map((featureKey, i) => (
           <motion.li
-            key={i}
+            key={featureKey}
             className="flex items-start gap-3 text-white/80"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -94,7 +95,7 @@ function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
             transition={{ duration: 0.3, delay: index * 0.1 + i * 0.05 + 0.3 }}
           >
             <CheckCircle2 className="w-5 h-5 text-sky flex-shrink-0 mt-0.5" />
-            <span>{feature}</span>
+            <span>{t(featureKey)}</span>
           </motion.li>
         ))}
       </ul>
@@ -105,7 +106,7 @@ function PlanCard({ plan, index }: { plan: typeof plans[0]; index: number }) {
         whileHover={{ scale: 1.02, y: -2 }}
         whileTap={{ scale: 0.98 }}
       >
-        {plan.cta}
+        {t(plan.cta)}
       </motion.a>
     </motion.div>
   )
@@ -133,8 +134,8 @@ export default function Pricing() {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {plans.map((plan, index) => (
-            <PlanCard plan={plan} index={index} />
+          {(Object.keys(planKeys) as (keyof typeof planKeys)[]).map((planKey, index) => (
+            <PlanCard planKey={planKey} index={index} />
           ))}
         </div>
 
