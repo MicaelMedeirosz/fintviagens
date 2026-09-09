@@ -8,6 +8,14 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 const TRACKING_CODE = '#FINT-SITE'
 
+const navItems = [
+  { key: 'nav_how' as const, id: 'como-funciona' },
+  { key: 'nav_destinations' as const, id: 'destinos' },
+  { key: 'nav_features' as const, id: 'vantagens' },
+  { key: 'nav_testimonials' as const, id: 'depoimentos' },
+  { key: 'nav_contact' as const, id: 'contato' },
+]
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { t } = useLanguage()
@@ -39,18 +47,15 @@ export default function Navbar() {
         </motion.a>
 
         <div className="hidden md:flex items-center gap-10">
-          {[t('nav_how'), t('nav_destinations'), t('nav_features'), t('nav_testimonials'), t('nav_contact')].map((item) => {
-            const id = item.toLowerCase().replace('ç', 'c').replace('ã', 'a')
-            return (
-              <motion.a
-                key={item}
-                href={`#${id}`}
-                className="text-sm font-medium text-white/80 hover:text-sky transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-sky after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left transition-transform duration-300"
-              >
-                {item}
-              </motion.a>
-            )
-          })}
+          {navItems.map((item) => (
+            <motion.a
+              key={item.key}
+              href={`#${item.id}`}
+              className="text-sm font-medium text-white/80 hover:text-sky transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-sky after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left transition-transform duration-300"
+            >
+              {t(item.key)}
+            </motion.a>
+          ))}
         </div>
 
         <div className="flex items-center gap-3">

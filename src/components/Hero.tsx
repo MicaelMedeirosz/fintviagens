@@ -17,10 +17,15 @@ interface FlightCardProps {
 
 function FlightCard({ from, to, price, installment, airline, direct, delay }: FlightCardProps) {
   const { t } = useLanguage()
-  const scrollToQuote = () => {
-    const el = document.getElementById('cotar')
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
+const scrollToQuote = () => {
+  const el = document.getElementById('cotar')
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+}
+
+const scrollToHow = () => {
+  const el = document.getElementById('como-funciona')
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+}
 
   return (
     <motion.div

@@ -104,6 +104,7 @@ ${TRACKING_CODE}`
 
   return (
     <section id="cotar" className="py-28 md:py-32 relative overflow-hidden">
+      <div id="contato" className="absolute -top-20" />
       <div className="absolute inset-0 bg-gradient-to-br from-sky/10 via-transparent to-navy/10" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
       

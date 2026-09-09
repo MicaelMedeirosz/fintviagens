@@ -4,19 +4,48 @@ import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-function TestimonialCard({ testimonial }: { testimonial: { name: string; location: string; text: string; rating: number } }) {
+function TestimonialCard({ testimonial }: { 
+  testimonial: { 
+    name: string; 
+    location: string; 
+    text: string; 
+    rating: number;
+    media?: string;
+    mediaType?: 'image' | 'video' | 'none';
+  } 
+}) {
+  const hasMedia = testimonial.media && testimonial.mediaType !== 'none'
+
   return (
-    <div className="glass-strong rounded-2xl p-8 h-full transition-all duration-500 hover:shadow-2xl hover:shadow-sky/10 hover:border-sky/30">
-      <div className="flex gap-1 mb-4">
+    <div className="glass-strong rounded-2xl p-8 h-full transition-all duration-500 hover:shadow-2xl hover:shadow-sky/10 hover:border-sky/30 flex flex-col items-center justify-center">
+      <div className="flex gap-1 mb-6">
         {Array.from({ length: testimonial.rating }).map((_, i) => (
-          <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+          <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
         ))}
       </div>
-      <p className="text-white/80 leading-relaxed mb-6">&ldquo;{testimonial.text}&rdquo;</p>
-      <div className="border-t border-white/10 pt-4">
-        <p className="font-semibold">{testimonial.name}</p>
-        <p className="text-sm text-white/50">{testimonial.location}</p>
-      </div>
+      
+      {hasMedia && (
+        <div className="relative aspect-[3/4] w-full max-w-xs rounded-xl overflow-hidden bg-white/5">
+          {testimonial.mediaType === 'video' ? (
+            <video
+              src={testimonial.media}
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            />
+          ) : (
+            <img
+              src={testimonial.media}
+              alt={testimonial.name}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          )}
+        </div>
+      )}
     </div>
   )
 }
@@ -25,10 +54,38 @@ export default function Testimonials() {
   const { t } = useLanguage()
 
   const testimonials = [
-    { name: t('testimonial_1_name'), location: t('testimonial_1_location'), text: t('testimonial_1_text'), rating: 5 },
-    { name: t('testimonial_2_name'), location: t('testimonial_2_location'), text: t('testimonial_2_text'), rating: 5 },
-    { name: t('testimonial_3_name'), location: t('testimonial_3_location'), text: t('testimonial_3_text'), rating: 5 },
-    { name: t('testimonial_4_name'), location: t('testimonial_4_location'), text: t('testimonial_4_text'), rating: 5 },
+    { 
+      name: t('testimonial_1_name'), 
+      location: t('testimonial_1_location'), 
+      text: t('testimonial_1_text'), 
+      rating: 5,
+      media: t('testimonial_1_media'),
+      mediaType: t('testimonial_1_media_type') as 'image' | 'video' | 'none'
+    },
+    { 
+      name: t('testimonial_2_name'), 
+      location: t('testimonial_2_location'), 
+      text: t('testimonial_2_text'), 
+      rating: 5,
+      media: t('testimonial_2_media'),
+      mediaType: t('testimonial_2_media_type') as 'image' | 'video' | 'none'
+    },
+    { 
+      name: t('testimonial_3_name'), 
+      location: t('testimonial_3_location'), 
+      text: t('testimonial_3_text'), 
+      rating: 5,
+      media: t('testimonial_3_media'),
+      mediaType: t('testimonial_3_media_type') as 'image' | 'video' | 'none'
+    },
+    { 
+      name: t('testimonial_4_name'), 
+      location: t('testimonial_4_location'), 
+      text: t('testimonial_4_text'), 
+      rating: 5,
+      media: t('testimonial_4_media'),
+      mediaType: t('testimonial_4_media_type') as 'image' | 'video' | 'none'
+    },
   ]
 
   return (

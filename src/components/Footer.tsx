@@ -9,36 +9,36 @@ export default function Footer() {
 
   const footerLinks = {
     [t('footer_company')]: [
-      t('footer_about'),
-      t('footer_how'),
-      t('footer_partners'),
-      t('footer_careers'),
-      t('footer_press'),
-      t('footer_blog'),
+      { label: t('footer_about'), href: '#vantagens' },
+      { label: t('footer_how'), href: '#como-funciona' },
+      { label: t('footer_partners'), href: '#destinos' },
+      { label: t('footer_careers'), href: '#cotar' },
+      { label: t('footer_press'), href: '#cotar' },
+      { label: t('footer_blog'), href: '#cotar' },
     ],
     [t('footer_help')]: [
-      t('footer_help_center'),
-      t('footer_faq'),
-      t('footer_cancellation'),
-      t('footer_terms'),
-      t('footer_privacy'),
-      t('footer_contact_link'),
+      { label: t('footer_help_center'), href: '#cotar' },
+      { label: t('footer_faq'), href: '#cotar' },
+      { label: t('footer_cancellation'), href: '#cotar' },
+      { label: t('footer_terms'), href: '#cotar' },
+      { label: t('footer_privacy'), href: '#cotar' },
+      { label: t('footer_contact_link'), href: '#contato' },
     ],
     [t('footer_dest')]: [
-      'São Paulo (GRU)',
-      'Nova York (JFK)',
-      'Lisboa (LIS)',
-      'Madrid (MAD)',
-      'Paris (CDG)',
-      t('footer_view_all'),
+      { label: 'São Paulo (GRU)', href: '#cotar' },
+      { label: 'Nova York (JFK)', href: '#cotar' },
+      { label: 'Lisboa (LIS)', href: '#cotar' },
+      { label: 'Madrid (MAD)', href: '#cotar' },
+      { label: 'Paris (CDG)', href: '#cotar' },
+      { label: t('footer_view_all'), href: '#destinos' },
     ],
     [t('footer_contact')]: [
-      t('footer_whatsapp'),
-      t('footer_phone'),
-      t('footer_email'),
-      t('footer_address'),
-      t('footer_hours_week'),
-      t('footer_hours_sat'),
+      { label: t('footer_whatsapp'), href: 'https://wa.me/41798955348' },
+      { label: t('footer_phone'), href: 'tel:+41793919828' },
+      { label: t('footer_email'), href: 'mailto:info@fintviagens.ch' },
+      { label: t('footer_address'), href: '#contato' },
+      { label: t('footer_hours_week'), href: '#contato' },
+      { label: t('footer_hours_sat'), href: '#contato' },
     ],
   }
 
@@ -90,14 +90,14 @@ export default function Footer() {
               <ul className="space-y-3">
                 {links.map((link, linkIndex) => (
                   <motion.li
-                    key={link}
+                    key={link.label}
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: catIndex * 0.08 + linkIndex * 0.03 + 0.2 }}
                   >
-                    <a href="#" className="text-white/60 hover:text-sky transition-colors text-sm">
-                      {link}
+                    <a href={link.href} className="text-white/60 hover:text-sky transition-colors text-sm">
+                      {link.label}
                     </a>
                   </motion.li>
                 ))}
