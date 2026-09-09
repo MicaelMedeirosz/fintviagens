@@ -8,6 +8,16 @@ import { useLanguage } from '@/contexts/LanguageContext'
 const WHATSAPP_NUMBER = '41798955348'
 const TRACKING_CODE = '#FINT-SITE'
 
+const formatDateToDDMMAAAA = (dateStr: string | null | undefined): string => {
+  if (!dateStr) return ''
+  const parts = dateStr.split(/[-/]/)
+  if (parts.length === 3 && parts[0].length === 4) {
+    const [year, month, day] = parts
+    return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`
+  }
+  return dateStr
+}
+
 export default function CTA() {
   const { t } = useLanguage()
   const [tipoViagem, setTipoViagem] = useState('Somente Ida')
@@ -51,8 +61,8 @@ export default function CTA() {
     const tipoViagemVal = formData.get('tipoViagem') as string
     const origem = formData.get('origem') as string
     const destino = formData.get('destino') as string
-    const dataIda = formData.get('dataIda') as string
-    const dataVolta = formData.get('dataVolta') as string
+    const dataIdaFormatted = formatDateToDDMMAAAA(formData.get('dataIda') as string)
+    const dataVoltaFormatted = formatDateToDDMMAAAA(formData.get('dataVolta') as string)
     const adultos = formData.get('adultos') as string
     const criancasVal = formData.get('criancas') as string
     const observacoes = formData.get('observacoes') as string
@@ -68,8 +78,8 @@ ${t('wa_field_phone')}: ${telefone}
 ${t('wa_field_type')}: ${tipoViagemVal}
 ${t('wa_field_origin')}: ${origem}
 ${t('wa_field_dest')}: ${destino}
-${t('wa_field_depart')}: ${dataIda}
-${tipoViagemVal === 'Ida e Volta' && dataVolta ? `${t('wa_field_return')}: ${dataVolta}` : ''}
+${t('wa_field_depart')}: ${dataIdaFormatted}
+${tipoViagemVal === 'Ida e Volta' && dataVoltaFormatted ? `${t('wa_field_return')}: ${dataVoltaFormatted}` : ''}
 
 *${t('wa_section_passengers')}* 
 ${t('wa_field_adults')}: ${adultos}
@@ -79,7 +89,7 @@ ${t('wa_field_children')}: ${criancasVal}`
       message += `\n\n*${t('wa_section_children')}*`
       criancasData.forEach((data, index) => {
         if (data) {
-          message += `\n${t('wa_child_n')} ${index + 1}: ${data}`
+          message += `\n${t('wa_child_n')} ${index + 1}: ${formatDateToDDMMAAAA(data)}`
         }
       })
     }
