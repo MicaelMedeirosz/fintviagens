@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import LanguageSelector from './LanguageSelector'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const TRACKING_CODE = '#FINT-SITE'
+const TRACKING_CODE = '#FINT-SITE-NAVBAR'
 
 const navItems = [
   { key: 'nav_how' as const, id: 'como-funciona' },

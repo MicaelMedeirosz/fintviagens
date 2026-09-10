@@ -6,7 +6,7 @@ import { Mail, ArrowRight, User, Calendar } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const WHATSAPP_NUMBER = '41798955348'
-const TRACKING_CODE = '#FINT-SITE'
+const TRACKING_CODE = '#FINT-SITE-FORM'
 
 const formatDateToDDMMAAAA = (dateStr: string | null | undefined): string => {
   if (!dateStr) return ''

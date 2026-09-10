@@ -198,7 +198,8 @@ export default function Hero() {
     }
   }, [])
 
-  const whatsappLink = `https://wa.me/41798955348?text=${encodeURIComponent(t('wa_intro'))} ${t('wa_field_type')}`
+  const TRACKING_CODE = '#FINT-SITE-HERO'
+  const whatsappLink = `https://wa.me/41798955348?text=${encodeURIComponent(t('wa_intro') + ' ' + TRACKING_CODE)}`
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-mesh">

@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Footer() {
   const { t } = useLanguage()
+  const TRACKING_CODE = '#FINT-SITE-FOOTER'
 
   const footerLinks = {
     [t('footer_company')]: [
@@ -25,7 +26,7 @@ export default function Footer() {
       { label: t('footer_contact_link'), href: '#contato' },
     ],
     [t('footer_contact')]: [
-      { label: t('footer_whatsapp'), href: 'https://wa.me/41798955348' },
+      { label: t('footer_whatsapp'), href: `https://wa.me/41798955348?text=${encodeURIComponent(t('wa_intro') + ' ' + TRACKING_CODE)}` },
       { label: t('footer_phone'), href: 'tel:+41793919828' },
       { label: t('footer_email'), href: 'mailto:info@fintviagens.ch' },
       { label: t('footer_address'), href: '#contato' },
@@ -54,7 +55,7 @@ export default function Footer() {
               {['instagram', 'whatsapp'].map((social) => (
                 <motion.a
                   key={social}
-                  href={social === 'instagram' ? 'https://www.instagram.com/fintviagens/' : 'https://wa.me/41798955348'}
+                  href={social === 'instagram' ? 'https://www.instagram.com/fintviagens/' : `https://wa.me/41798955348?text=${encodeURIComponent(t('wa_intro') + ' ' + TRACKING_CODE)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 glass rounded-xl flex items-center justify-center text-white/60 hover:text-sky hover:bg-white/10 transition-all"
