@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { MessageSquare, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import LanguageSelector from './LanguageSelector'
 import { useLanguage } from '@/contexts/LanguageContext'
 
@@ -37,13 +37,13 @@ export default function Navbar() {
       style={{ willChange: 'transform, opacity' }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <motion.a
+<motion.a
           href="#"
-          className="flex items-center gap-3"
+          className="relative z-10 h-20"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          <img src="/logo.svg" alt="Fint Viagens" className="h-10 w-auto" />
+          <img src="/logo.svg" alt="Fint Viagens" className="h-28 w-auto absolute -top-6 left-0" />
         </motion.a>
 
         <div className="hidden md:flex items-center gap-10">
@@ -68,7 +68,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <MessageSquare className="w-4 h-4" />
+            <img src="/icons/whatsapp.svg" alt="WhatsApp" className="w-4 h-4 text-white" />
             {t('nav_whatsapp')}
           </motion.a>
           <motion.a

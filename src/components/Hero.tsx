@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle2, Plane, MessageSquare, Shield } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Plane, Shield } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 interface FlightCardProps {
@@ -47,14 +47,14 @@ const scrollToHow = () => {
       <div className="flex items-center justify-between mb-3">
         <div className="text-center">
           <p className="text-2xl font-bold font-display">{from}</p>
-          <p className="text-xs text-white/50">{t('nav_how')}</p>
+          <p className="text-xs text-white/50">{t('flight_origin')}</p>
         </div>
         <div className="flex items-center gap-2 text-white/40">
           <Plane className="w-4 h-4 rotate-90" />
         </div>
         <div className="text-center">
           <p className="text-2xl font-bold font-display">{to}</p>
-          <p className="text-xs text-white/50">{t('nav_destinations')}</p>
+          <p className="text-xs text-white/50">{t('flight_dest')}</p>
         </div>
       </div>
       <div className="border-t border-white/10 pt-3">
@@ -260,7 +260,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <MessageSquare className="w-5 h-5" />
+                <img src="/icons/whatsapp.svg" alt="WhatsApp" className="w-5 h-5" />
                 +41 79 895 5348
               </motion.a>
             </motion.div>
@@ -296,7 +296,7 @@ export default function Hero() {
               <div className="bg-bg-dark/80 rounded-2xl p-8 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-sky/10 via-transparent to-navy/10" />
                 
-                <div className="relative grid grid-cols-2 gap-4">
+                <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FlightCard 
                     from="ZRH" 
                     to="GRU" 

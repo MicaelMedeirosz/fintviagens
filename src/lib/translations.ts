@@ -30,6 +30,8 @@ export const translations = {
     hero_secure: 'Compra segura',
     hero_support_24h: 'Suporte 24h',
     hero_explore: 'Explore',
+    flight_origin: 'Origem',
+    flight_dest: 'Destino',
 
     trust_partners: 'Parceiros',
 
@@ -57,7 +59,7 @@ export const translations = {
     feat_title_3: 'na Suíça',
     feat_subtitle: 'Mais que passagens, entregamos tranquilidade para sua viagem.',
     feat_1_title: 'Segurança Total',
-    feat_1_desc: 'Parceiros certificados IATA e proteção de dados bancária',
+    feat_1_desc: 'Parceiros certificados e proteção de dados bancários',
     feat_2_title: 'Parcelamento Real',
     feat_2_desc: 'Até 12x no boleto',
     feat_3_title: 'Melhores Rotas',
@@ -98,19 +100,22 @@ export const translations = {
     testimonial_4_media: '',
     testimonial_4_media_type: 'none',
 
+    test_cta_text: 'Caso queira ver mais entre no nosso instagram',
+    test_cta_button: 'Ver Instagram @fintviagens',
+
     stat_1: 'Clientes Satisfeitos',
     stat_2: 'Taxa de Aprovação',
     stat_3: 'No boleto',
     stat_4: 'Emissão Rápida',
 
     price_label: 'Planos Flexíveis',
-    price_title_1: 'Escolha seu',
-    price_title_2: 'plano',
+    price_title_1: 'Escolha sua',
+    price_title_2: 'passagem',
     price_subtitle: 'Todos com parcelamento em 12x. Taxas e impostos incluídos.',
     price_popular: 'MAIS ESCOLHIDA',
     price_locked: 'Clique para cotar',
     price_disclaimer: 'Valores variam conforme data, antecedência e disponibilidade.',
-    price_disclaimer_2: 'Parcelamento em 12x residentes na Suíça. Sujeito a aprovação de crédito.',
+    price_disclaimer_2: 'Parcelamento em 12x para residentes na Suíça. Sujeito a aprovação de crédito.',
 
     // Plan-specific translations
     price_plan_basica: 'Básica',
@@ -240,6 +245,8 @@ export const translations = {
     hero_secure: 'Sicherer Kauf',
     hero_support_24h: '24h Support',
     hero_explore: 'Entdecken',
+    flight_origin: 'Start',
+    flight_dest: 'Ziel',
 
     trust_partners: 'Partner',
 
@@ -267,7 +274,7 @@ export const translations = {
     feat_title_3: 'in der Schweiz',
     feat_subtitle: 'Mehr als nur Tickets, wir bieten Ihnen Sicherheit für Ihre Reise.',
     feat_1_title: 'Totale Sicherheit',
-    feat_1_desc: 'IATA-zertifizierte Partner und Bankdatenschutz',
+    feat_1_desc: 'Zertifizierte Partner und Bankgeheimnis',
     feat_2_title: 'Echte Ratenzahlung',
     feat_2_desc: 'Bis zu 12 Raten per Rechnung',
     feat_3_title: 'Beste Routen',
@@ -308,14 +315,17 @@ export const translations = {
     testimonial_4_media: '',
     testimonial_4_media_type: 'none',
 
+    test_cta_text: 'Falls Sie mehr sehen möchten, besuchen Sie unser Instagram',
+    test_cta_button: 'Instagram @fintviagens ansehen',
+
     stat_1: 'Zufriedene Kunden',
     stat_2: 'Genehmigungsrate',
     stat_3: 'Per Rechnung',
     stat_4: 'Schnelle Ausstellung',
 
     price_label: 'Flexible Pläne',
-    price_title_1: 'Wählen Sie Ihren',
-    price_title_2: 'Plan',
+    price_title_1: 'Wählen Sie Ihr',
+    price_title_2: 'Ticket aus',
     price_subtitle: 'Alle mit 12 Raten. Steuern und Gebühren inklusive.',
     price_popular: 'AM BELIEBTESTEN',
     price_locked: 'Klicken zum Anfragen',
@@ -449,6 +459,8 @@ export const translations = {
     hero_secure: 'Secure purchase',
     hero_support_24h: '24h support',
     hero_explore: 'Explore',
+    flight_origin: 'Origin',
+    flight_dest: 'Destination',
 
     trust_partners: 'Partners',
 
@@ -476,7 +488,7 @@ export const translations = {
     feat_title_3: 'in Switzerland',
     feat_subtitle: 'More than tickets, we deliver peace of mind for your trip.',
     feat_1_title: 'Total Security',
-    feat_1_desc: 'IATA-certified partners and bank-grade data protection',
+    feat_1_desc: 'certified partners and bank-grade data protection',
     feat_2_title: 'Real Installments',
     feat_2_desc: 'Up to 12 installments via boleto',
     feat_3_title: 'Best Routes',
@@ -517,6 +529,9 @@ export const translations = {
     testimonial_4_media: '',
     testimonial_4_media_type: 'none',
 
+    test_cta_text: 'If you want to see more, visit our Instagram',
+    test_cta_button: 'View Instagram @fintviagens',
+
     stat_1: 'Happy Customers',
     stat_2: 'Approval Rate',
     stat_3: 'Via Boleto',
@@ -524,7 +539,7 @@ export const translations = {
 
     price_label: 'Flexible Plans',
     price_title_1: 'Choose your',
-    price_title_2: 'plan',
+    price_title_2: 'ticket',
     price_subtitle: 'All with 12 installments. Taxes and fees included.',
     price_popular: 'MOST CHOSEN',
     price_locked: 'Click to quote',
@@ -658,6 +673,8 @@ export const translations = {
     hero_secure: 'Compra segura',
     hero_support_24h: 'Soporte 24h',
     hero_explore: 'Explorar',
+    flight_origin: 'Origen',
+    flight_dest: 'Destino',
 
     trust_partners: 'Socios',
 
@@ -685,7 +702,7 @@ export const translations = {
     feat_title_3: 'en Suiza',
     feat_subtitle: 'Más que pasajes, entregamos tranquilidad para tu viaje.',
     feat_1_title: 'Seguridad total',
-    feat_1_desc: 'Socios certificados IATA y protección de datos bancarios',
+    feat_1_desc: 'Socios certificados y protección de datos bancarios',
     feat_2_title: 'Cuotas reales',
     feat_2_desc: 'Hasta 12 cuotas por boleto',
     feat_3_title: 'Mejores rutas',
@@ -726,6 +743,9 @@ testimonial_1_name: 'Maria Santos',
     testimonial_4_media: '',
     testimonial_4_media_type: 'none',
 
+    test_cta_text: 'Si quiere ver más, visite nuestro Instagram',
+    test_cta_button: 'Ver Instagram @fintviagens',
+
     stat_1: 'Clientes satisfechos',
     stat_2: 'Tasa de aprobación',
     stat_3: 'Por boleto',
@@ -733,7 +753,7 @@ testimonial_1_name: 'Maria Santos',
 
     price_label: 'Planes flexibles',
     price_title_1: 'Elige tu',
-    price_title_2: 'plan',
+    price_title_2: 'pasaje',
     price_subtitle: 'Todos con 12 cuotas. Impuestos y tasas incluidos.',
     price_popular: 'MÁS ELEGIDA',
     price_locked: 'Clic para cotizar',

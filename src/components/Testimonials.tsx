@@ -8,13 +8,38 @@ function TestimonialCard({ testimonial }: {
   testimonial: { 
     name: string; 
     location: string; 
-    text: string; 
+    text: string;
     rating: number;
     media?: string;
     mediaType?: 'image' | 'video' | 'none';
+    isCta?: boolean;
+    ctaText?: string;
+    ctaButton?: string;
   } 
 }) {
   const hasMedia = testimonial.media && testimonial.mediaType !== 'none'
+
+if (testimonial.isCta) {
+    return (
+      <div className="glass-strong rounded-2xl p-8 h-full transition-all duration-500 hover:shadow-2xl hover:shadow-sky/10 hover:border-sky/30 flex flex-col items-center justify-center text-center">
+        <div className="w-16 h-16 rounded-full bg-sky/20 flex items-center justify-center mb-6">
+          <img src="/icons/instagram.svg" alt="Instagram" className="w-8 h-8 text-sky" />
+        </div>
+        <p className="text-white/80 text-lg mb-6 max-w-xs">{testimonial.ctaText}</p>
+        <a
+          href="https://instagram.com/fintviagens"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-sky text-navy font-semibold rounded-full hover:bg-sky/90 transition-colors shadow-lg shadow-sky/20"
+        >
+          {testimonial.ctaButton}
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+    )
+  }
 
   return (
     <div className="glass-strong rounded-2xl p-8 h-full transition-all duration-500 hover:shadow-2xl hover:shadow-sky/10 hover:border-sky/30 flex flex-col items-center justify-center">
@@ -78,13 +103,13 @@ export default function Testimonials() {
       media: t('testimonial_3_media'),
       mediaType: t('testimonial_3_media_type') as 'image' | 'video' | 'none'
     },
-    { 
-      name: t('testimonial_4_name'), 
-      location: t('testimonial_4_location'), 
-      text: t('testimonial_4_text'), 
+    {
+      isCta: true,
+      ctaText: t('test_cta_text'),
+      ctaButton: t('test_cta_button'),
       rating: 5,
-      media: t('testimonial_4_media'),
-      mediaType: t('testimonial_4_media_type') as 'image' | 'video' | 'none'
+      media: '',
+      mediaType: 'none' as const,
     },
   ]
 
