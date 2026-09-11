@@ -32,13 +32,13 @@ export default function LanguageSelector() {
     <div className="relative" ref={ref}>
       <motion.button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-3 py-2 glass rounded-full text-sm font-medium hover:bg-white/10 transition-colors"
+        className="flex items-center gap-2 px-3 py-2 glass rounded-full text-sm font-medium hover:bg-[var(--glass-strong-bg)] transition-colors"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         aria-label="Select language"
       >
         <Globe className="w-4 h-4 text-sky" />
-        <span className="uppercase font-bold">{current.code}</span>
+        <span className="uppercase font-bold text-[var(--text-primary)]">{current.code}</span>
         <ChevronDown className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`} />
       </motion.button>
 
@@ -49,7 +49,7 @@ export default function LanguageSelector() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full right-0 mt-2 w-48 glass-strong rounded-2xl p-2 shadow-2xl shadow-bg-dark/50 z-50"
+            className="absolute top-full right-0 mt-2 w-48 glass-strong rounded-2xl p-2 shadow-2xl shadow-[var(--bg-primary)]/50 z-50"
           >
             {languages.map((language) => (
               <motion.button
@@ -58,7 +58,7 @@ export default function LanguageSelector() {
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors ${
                   lang === language.code 
                     ? 'bg-sky/20 text-sky' 
-                    : 'hover:bg-white/10 text-white/80'
+                    : 'hover:bg-[var(--glass-strong-bg)] text-[var(--text-primary)]/80'
                 }`}
                 whileHover={{ x: 2 }}
                 whileTap={{ scale: 0.98 }}

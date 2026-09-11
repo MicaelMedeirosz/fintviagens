@@ -29,12 +29,12 @@ export default function Features() {
           <span className="inline-block px-4 py-1.5 glass rounded-full text-sm font-medium text-sky mb-4">
             {t('feat_label')}
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 text-[var(--text-primary)]">
             {t('feat_title_1')} <span className="text-sky">{t('feat_title_2')}</span>
             <br />
             <span className="text-sky">{t('feat_title_3')}</span>
           </h2>
-          <p className="text-lg text-white/60">
+          <p className="text-lg text-[var(--text-secondary)]">
             {t('feat_subtitle')}
           </p>
         </motion.div>
@@ -55,8 +55,8 @@ export default function Features() {
               >
                 <feature.icon className="w-7 h-7" />
               </motion.div>
-              <h3 className="text-xl font-bold mb-3">{t(feature.titleKey)}</h3>
-              <p className="text-white/70 leading-relaxed">{t(feature.descKey)}</p>
+              <h3 className="text-xl font-bold mb-3 text-[var(--text-primary)]">{t(feature.titleKey)}</h3>
+              <p className="text-[var(--text-secondary)] leading-relaxed">{t(feature.descKey)}</p>
             </motion.div>
           ))}
         </div>

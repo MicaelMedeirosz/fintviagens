@@ -25,12 +25,12 @@ export default function HowItWorks() {
           <span className="inline-block px-4 py-1.5 glass rounded-full text-sm font-medium text-sky mb-4">
             {t('how_label')}
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 text-[var(--text-primary)]">
             {t('how_title_1')} <span className="text-sky">{t('how_title_2')}</span>
             <br />
             <span className="text-sky">{t('how_title_3')}</span>
           </h2>
-          <p className="text-lg text-white/60">
+          <p className="text-lg text-[var(--text-secondary)]">
             {t('how_subtitle')}
           </p>
         </motion.div>
@@ -55,8 +55,8 @@ export default function HowItWorks() {
                 </motion.div>
 
                 <div className="pt-8">
-                  <h3 className="text-2xl font-bold mb-3">{t(step.titleKey)}</h3>
-                  <p className="text-white/70 leading-relaxed">{t(step.descKey)}</p>
+                  <h3 className="text-2xl font-bold mb-3 text-[var(--text-primary)]">{t(step.titleKey)}</h3>
+                  <p className="text-[var(--text-secondary)] leading-relaxed">{t(step.descKey)}</p>
                 </div>
               </div>
 

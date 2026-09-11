@@ -62,13 +62,13 @@ function PlanCard({ planKey, index }: { planKey: keyof typeof planKeys; index: n
       )}
 
       <div className="mb-6">
-        <h3 className="text-xl font-bold mb-2">{t(plan.name)}</h3>
+        <h3 className="text-xl font-bold mb-2 text-[var(--text-primary)]">{t(plan.name)}</h3>
         <div className="relative" onClick={scrollToQuote} style={{ cursor: 'pointer' }}>
-          <p className="text-4xl font-bold font-display text-sky mb-1 blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5 select-none pointer-events-none">
+          <p className="text-4xl font-bold font-display text-sky mb-1 blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-primary)]/20 to-[var(--text-primary)]/5 select-none pointer-events-none">
             {plan.price}
           </p>
           <motion.div
-            className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-bg-dark/80 via-sky/20 to-bg-dark/80 rounded-lg"
+            className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-[var(--bg-primary)]/80 via-sky/20 to-[var(--bg-primary)]/80 rounded-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
@@ -79,7 +79,7 @@ function PlanCard({ planKey, index }: { planKey: keyof typeof planKeys; index: n
             </span>
           </motion.div>
         </div>
-        <p className="text-white/60 blur-[4px] select-none pointer-events-none">
+        <p className="text-[var(--text-secondary)] blur-[4px] select-none pointer-events-none">
           {plan.installment}
         </p>
       </div>
@@ -88,7 +88,7 @@ function PlanCard({ planKey, index }: { planKey: keyof typeof planKeys; index: n
         {plan.features.map((featureKey, i) => (
           <motion.li
             key={featureKey}
-            className="flex items-start gap-3 text-white/80"
+            className="flex items-start gap-3 text-[var(--text-primary)]/80"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -102,7 +102,7 @@ function PlanCard({ planKey, index }: { planKey: keyof typeof planKeys; index: n
 
       <motion.a
         href="#cotar"
-        className={`w-full py-4 px-6 rounded-full text-center font-semibold transition-all ${plan.popular ? 'bg-sky text-navy hover:bg-sky/90 shadow-lg shadow-sky/30' : 'glass-strong hover:bg-white/10 border border-white/10'}`}
+        className={`w-full py-4 px-6 rounded-full text-center font-semibold transition-all ${plan.popular ? 'bg-sky text-navy hover:bg-sky/90 shadow-lg shadow-sky/30' : 'glass-strong hover:bg-[var(--glass-strong-bg)] border border-[var(--border-primary)]'}`}
         whileHover={{ scale: 1.02, y: -2 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -125,10 +125,10 @@ export default function Pricing() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 text-[var(--text-primary)]">
             {t('price_title_1')} <span className="text-sky">{t('price_title_2')}</span>
           </h2>
-          <p className="text-lg text-white/60">
+          <p className="text-lg text-[var(--text-secondary)]">
             {t('price_subtitle')}
           </p>
         </motion.div>
@@ -140,7 +140,7 @@ export default function Pricing() {
         </div>
 
         <motion.p
-          className="text-center text-white/50 text-sm mt-12"
+          className="text-center text-[var(--text-secondary)] text-sm mt-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

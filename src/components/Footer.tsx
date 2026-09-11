@@ -36,7 +36,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-bg-dark border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-[var(--bg-primary)] border-t border-[var(--border-primary)] relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
       
       <div className="relative max-w-7xl mx-auto px-6 py-20">
@@ -48,7 +48,7 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <img src="/logo.svg" alt="Fint Viagens" className="h-12 mb-6" />
-            <p className="text-white/60 text-sm leading-relaxed mb-6">
+            <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-6">
               {t('footer_tagline')}
             </p>
             <div className="flex gap-4">
@@ -58,7 +58,7 @@ export default function Footer() {
                   href={social === 'instagram' ? 'https://www.instagram.com/fintviagens/' : `https://wa.me/41798955348?text=${encodeURIComponent(t('wa_intro') + ' ' + TRACKING_CODE)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 glass rounded-xl flex items-center justify-center text-white/60 hover:text-sky hover:bg-white/10 transition-all"
+                  className="w-10 h-10 glass rounded-xl flex items-center justify-center text-[var(--text-secondary)] hover:text-sky hover:bg-[var(--glass-strong-bg)] transition-all"
                   whileHover={{ scale: 1.1, rotate: 3 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -77,7 +77,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ delay: catIndex * 0.08 }}
             >
-              <h4 className="font-bold mb-4">{category}</h4>
+              <h4 className="font-bold mb-4 text-[var(--text-primary)]">{category}</h4>
               <ul className="space-y-3">
                 {links.map((link, linkIndex) => (
                   <motion.li
@@ -87,7 +87,7 @@ export default function Footer() {
                     viewport={{ once: true }}
                     transition={{ delay: catIndex * 0.08 + linkIndex * 0.03 + 0.2 }}
                   >
-                    <a href={link.href} className="text-white/60 hover:text-sky transition-colors text-sm">
+                    <a href={link.href} className="text-[var(--text-secondary)] hover:text-sky transition-colors text-sm">
                       {link.label}
                     </a>
                   </motion.li>
@@ -97,12 +97,12 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <motion.p className="text-white/40 text-sm" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+        <div className="pt-8 border-t border-[var(--border-primary)] flex flex-col md:flex-row items-center justify-between gap-6">
+          <motion.p className="text-[var(--text-secondary)] text-sm" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
             © 2024 Fint Viagens. {t('footer_copyright')}
           </motion.p>
           
-          <motion.div className="flex items-center gap-8 text-sm text-white/40" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+          <motion.div className="flex items-center gap-8 text-sm text-[var(--text-secondary)]" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
             <span className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
               {t('footer_secure')}

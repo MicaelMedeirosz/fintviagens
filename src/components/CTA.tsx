@@ -103,8 +103,8 @@ ${TRACKING_CODE}`
     window.open(url, '_blank')
   }
 
-  const inputStyle = "w-full px-4 py-3 bg-bg-dark/60 border border-white/10 rounded-xl text-white placeholder-white/40 focus:border-sky focus:outline-none focus:ring-2 focus:ring-sky/20 transition-all"
-  const labelStyle = "block text-sm font-medium text-white/80 mb-2"
+  const inputStyle = "w-full px-4 py-3 bg-[var(--bg-secondary)]/60 border border-[var(--border-primary)] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:border-sky focus:outline-none focus:ring-2 focus:ring-sky/20 transition-all"
+  const labelStyle = "block text-sm font-medium text-[var(--text-primary)]/80 mb-2"
 
   const tripTypes = [
     { value: 'Somente Ida', label: t('cta_trip_oneway') },
@@ -113,7 +113,7 @@ ${TRACKING_CODE}`
   ]
 
   return (
-    <section id="cotar" className="py-28 md:py-32 relative overflow-hidden">
+    <section id="cotar" className="py-28 md:py-32 relative overflow-hidden bg-[var(--bg-primary)]">
       <div id="contato" className="absolute -top-20" />
       <div className="absolute inset-0 bg-gradient-to-br from-sky/10 via-transparent to-navy/10" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
@@ -126,12 +126,12 @@ ${TRACKING_CODE}`
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-[var(--text-primary)]">
             {t('cta_title_1')} <span className="text-sky">{t('cta_title_2')}</span>
             <br />
             <span className="text-sky">{t('cta_title_3')}</span>
           </h2>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
             {t('cta_subtitle')}
           </p>
         </motion.div>
@@ -147,7 +147,7 @@ ${TRACKING_CODE}`
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="flex items-center justify-center w-10 h-10 rounded-full bg-sky/20 text-sky font-bold">1</span>
-              <h3 className="text-xl font-bold">{t('cta_step_1')}</h3>
+              <h3 className="text-xl font-bold text-[var(--text-primary)]">{t('cta_step_1')}</h3>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
@@ -189,7 +189,7 @@ ${TRACKING_CODE}`
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="flex items-center justify-center w-10 h-10 rounded-full bg-sky/20 text-sky font-bold">2</span>
-              <h3 className="text-xl font-bold">{t('cta_step_2')}</h3>
+              <h3 className="text-xl font-bold text-[var(--text-primary)]">{t('cta_step_2')}</h3>
             </div>
             <div className="space-y-4">
               <div>
@@ -272,7 +272,7 @@ ${TRACKING_CODE}`
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="flex items-center justify-center w-10 h-10 rounded-full bg-sky/20 text-sky font-bold">3</span>
-              <h3 className="text-xl font-bold">{t('cta_step_3')}</h3>
+              <h3 className="text-xl font-bold text-[var(--text-primary)]">{t('cta_step_3')}</h3>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
@@ -320,11 +320,11 @@ ${TRACKING_CODE}`
                   exit={{ opacity: 0, height: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
                   style={{ overflow: 'hidden' }}
-                  className="mt-6 p-6 glass rounded-2xl border border-white/10"
+                  className="mt-6 p-6 glass rounded-2xl border border-[var(--border-primary)]"
                 >
                   <div className="flex items-center gap-2 mb-4">
                     <Calendar className="w-5 h-5 text-sky" />
-                    <h4 className="text-lg font-semibold">{t('cta_children_dates')}</h4>
+                    <h4 className="text-lg font-semibold text-[var(--text-primary)]">{t('cta_children_dates')}</h4>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {Array.from({ length: numCriancas }).map((_, index) => (
@@ -374,7 +374,7 @@ ${TRACKING_CODE}`
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </motion.button>
 
-          <p className="text-center text-white/50 text-xs">
+          <p className="text-center text-[var(--text-secondary)] text-xs">
             {t('cta_privacy')}
           </p>
         </motion.form>
@@ -386,7 +386,7 @@ ${TRACKING_CODE}`
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <p className="text-white/50 text-sm">
+          <p className="text-[var(--text-secondary)] text-sm">
             {t('cta_phone_hint')} <a href="tel:+41 079 391 98 28" className="text-sky hover:underline font-medium">+41 079 391 98 28</a> • 
             Seg-Sex 08:00-20:00 • Sáb 09:00-16:00
           </p>

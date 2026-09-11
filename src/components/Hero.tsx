@@ -47,23 +47,23 @@ const scrollToHow = () => {
       <div className="flex items-center justify-between mb-3">
         <div className="text-center">
           <p className="text-2xl font-bold font-display">{from}</p>
-          <p className="text-xs text-white/50">{t('flight_origin')}</p>
+          <p className="text-xs text-[var(--text-secondary)]">{t('flight_origin')}</p>
         </div>
-        <div className="flex items-center gap-2 text-white/40">
+        <div className="flex items-center gap-2 text-[var(--text-secondary)]">
           <Plane className="w-4 h-4 rotate-90" />
         </div>
         <div className="text-center">
           <p className="text-2xl font-bold font-display">{to}</p>
-          <p className="text-xs text-white/50">{t('flight_dest')}</p>
+          <p className="text-xs text-[var(--text-secondary)]">{t('flight_dest')}</p>
         </div>
       </div>
-      <div className="border-t border-white/10 pt-3">
+      <div className="border-t border-[var(--border-primary)] pt-3">
         <div className="relative" onClick={scrollToQuote} style={{ cursor: 'pointer' }}>
-          <p className="text-xl font-bold font-display text-sky blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5 select-none pointer-events-none">
+          <p className="text-xl font-bold font-display text-sky blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-primary)]/20 to-[var(--text-primary)]/5 select-none pointer-events-none">
             {price}
           </p>
           <motion.div
-            className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-bg-dark/80 via-sky/20 to-bg-dark/80 rounded-lg"
+            className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-[var(--bg-primary)]/80 via-sky/20 to-[var(--bg-primary)]/80 rounded-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
@@ -73,7 +73,7 @@ const scrollToHow = () => {
             </span>
           </motion.div>
         </div>
-        <p className="text-sm text-white/60 blur-[4px] select-none pointer-events-none">
+        <p className="text-sm text-[var(--text-secondary)] blur-[4px] select-none pointer-events-none">
           {installment}
         </p>
       </div>
@@ -218,7 +218,7 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <motion.h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight mb-6 bg-gradient-to-r from-white via-sky/90 to-white bg-clip-text text-transparent"
+              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight mb-6 bg-gradient-to-r from-[var(--title-gradient-from)] via-[var(--title-gradient-via)] to-[var(--title-gradient-to)] bg-clip-text text-transparent"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.7 }}
@@ -230,7 +230,7 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p
-              className="text-lg md:text-xl text-white/70 max-w-xl mb-10 leading-relaxed"
+              className="text-lg md:text-xl text-[var(--text-secondary)] max-w-xl mb-10 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
@@ -257,7 +257,7 @@ export default function Hero() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 px-8 py-4 glass-strong text-lg font-medium rounded-full hover:bg-white/10 transition-all border border-white/10"
+                className="flex items-center justify-center gap-3 px-8 py-4 glass-strong text-lg font-medium rounded-full hover:bg-[var(--glass-strong-bg)] transition-all border border-[var(--border-primary)]"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -267,7 +267,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              className="flex flex-wrap items-center gap-6 mt-10 text-sm text-white/50"
+              className="flex flex-wrap items-center gap-6 mt-10 text-sm text-[var(--text-secondary)]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
@@ -294,7 +294,7 @@ export default function Hero() {
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             <div className="relative glass-strong rounded-3xl p-2 max-w-md mx-auto">
-              <div className="bg-bg-dark/80 rounded-2xl p-8 relative overflow-hidden">
+              <div className="bg-[var(--bg-primary)]/80 rounded-2xl p-8 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-sky/10 via-transparent to-navy/10" />
                 
                 <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -337,12 +337,12 @@ export default function Hero() {
                 </div>
 
                 <motion.div
-                  className="mt-6 pt-6 border-t border-white/10 flex items-center justify-between"
+                  className="mt-6 pt-6 border-t border-[var(--border-primary)] flex items-center justify-between"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  <div className="flex items-center gap-3 text-sm text-white/60">
+                  <div className="flex items-center gap-3 text-sm text-[var(--text-secondary)]">
                     <Shield className="w-5 h-5 text-sky" />
                     <span>{t('hero_secure')} &bull; {t('hero_support_24h')}</span>
                   </div>
@@ -372,7 +372,7 @@ export default function Hero() {
       </div>
 
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 text-sm"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-secondary)] text-sm"
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ 

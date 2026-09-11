@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import LanguageSelector from './LanguageSelector'
+import ThemeToggle from './ThemeToggle'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const TRACKING_CODE = '#FINT-SITE-NAVBAR'
@@ -51,7 +52,7 @@ export default function Navbar() {
             <motion.a
               key={item.key}
               href={`#${item.id}`}
-              className="text-sm font-medium text-white/80 hover:text-sky transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-sky after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left transition-transform duration-300"
+              className="text-sm font-medium text-[var(--text-primary)]/80 hover:text-sky transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-sky after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left transition-transform duration-300"
             >
               {t(item.key)}
             </motion.a>
@@ -60,15 +61,16 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3">
           <LanguageSelector />
+          <ThemeToggle />
           <motion.a
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-2 px-4 py-2 glass rounded-full text-sm font-medium hover:bg-white/10 transition-colors"
+            className="hidden sm:flex items-center gap-2 px-4 py-2 glass rounded-full text-sm font-medium hover:bg-[var(--glass-strong-bg)] transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <img src="/icons/whatsapp.svg" alt="WhatsApp" className="w-4 h-4 text-white" />
+            <img src="/icons/whatsapp.svg" alt="WhatsApp" className="w-4 h-4" style={{ filter: 'var(--icon-filter)' }} />
             {t('nav_whatsapp')}
           </motion.a>
           <motion.a

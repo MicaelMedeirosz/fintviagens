@@ -14,7 +14,7 @@ export default function Stats() {
   const { t } = useLanguage()
 
   return (
-    <section className="py-20 bg-bg-dark/50 border-y border-white/5 relative">
+    <section className="py-20 bg-[var(--bg-secondary)]/50 border-y border-[var(--border-primary)] relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
@@ -35,7 +35,7 @@ export default function Stats() {
               >
                 {stat.value}
               </motion.div>
-              <p className="text-white/70 font-medium">{t(stat.labelKey)}</p>
+              <p className="text-[var(--text-secondary)] font-medium">{t(stat.labelKey)}</p>
             </motion.div>
           ))}
         </div>

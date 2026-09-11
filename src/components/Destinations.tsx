@@ -5,15 +5,15 @@ import { Plane } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const destinations = [
-  { city: 'São Paulo', code: 'GRU', flights: '12 voos/semana', price: 'CHF 890', bg: 'linear-gradient(135deg, #1e3a5f 0%, #0B3D6B 100%)' },
-  { city: 'Nova York', code: 'JFK', flights: '14 voos/semana', price: 'CHF 650', bg: 'linear-gradient(135deg, #1a3a4a 0%, #0d2d3d 100%)' },
-  { city: 'Lisboa', code: 'LIS', flights: '21 voos/semana', price: 'CHF 280', bg: 'linear-gradient(135deg, #3a2e1a 0%, #2d2210 100%)' },
-  { city: 'Madrid', code: 'MAD', flights: '18 voos/semana', price: 'CHF 180', bg: 'linear-gradient(135deg, #3a1a2e 0%, #2d1022 100%)' },
-  { city: 'Paris', code: 'CDG', flights: '28 voos/semana', price: 'CHF 150', bg: 'linear-gradient(135deg, #1a2e3a 0%, #10222d 100%)' },
-  { city: 'Londres', code: 'LHR', flights: '35 voos/semana', price: 'CHF 120', bg: 'linear-gradient(135deg, #2e1a3a 0%, #22102d 100%)' },
-  { city: 'Dubai', code: 'DXB', flights: '7 voos/semana', price: 'CHF 780', bg: 'linear-gradient(135deg, #3a3a1a 0%, #2d2d10 100%)' },
-  { city: 'Tóquio', code: 'NRT', flights: '5 voos/semana', price: 'CHF 1.150', bg: 'linear-gradient(135deg, #1a3a2e 0%, #102d1a 100%)' },
-  { city: 'Rio de Janeiro', code: 'GIG', flights: '8 voos/semana', price: 'CHF 920', bg: 'linear-gradient(135deg, #1a4a3a 0%, #0d3d2e 100%)' },
+  { city: 'São Paulo', code: 'GRU', flights: '12 voos/semana', price: 'CHF 890' },
+  { city: 'Nova York', code: 'JFK', flights: '14 voos/semana', price: 'CHF 650' },
+  { city: 'Lisboa', code: 'LIS', flights: '21 voos/semana', price: 'CHF 280' },
+  { city: 'Madrid', code: 'MAD', flights: '18 voos/semana', price: 'CHF 180' },
+  { city: 'Paris', code: 'CDG', flights: '28 voos/semana', price: 'CHF 150' },
+  { city: 'Londres', code: 'LHR', flights: '35 voos/semana', price: 'CHF 120' },
+  { city: 'Dubai', code: 'DXB', flights: '7 voos/semana', price: 'CHF 780' },
+  { city: 'Tóquio', code: 'NRT', flights: '5 voos/semana', price: 'CHF 1.150' },
+  { city: 'Rio de Janeiro', code: 'GIG', flights: '8 voos/semana', price: 'CHF 920' },
 ]
 
 const scrollToQuote = () => {
@@ -25,25 +25,29 @@ function DestinationCard({ dest, index }: { dest: typeof destinations[0]; index:
   const { t } = useLanguage()
   const installment = `12x de CHF ${(parseFloat(dest.price.replace('CHF ', '').replace(',', '')) / 12).toFixed(2)}/mês`
 
+  const cityKey = dest.city.toLowerCase().replace(' ', '-').replace('ã', 'a').replace('é', 'e')
+
   return (
     <motion.div
       key={dest.city}
       className="group relative rounded-2xl overflow-hidden"
-      style={{ background: dest.bg }}
+      style={{ 
+        backgroundImage: `linear-gradient(135deg, var(--dest-${cityKey}-start), var(--dest-${cityKey}-end))`
+      } as React.CSSProperties}
       initial={{ opacity: 0, y: 40, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.08 }}
       whileHover={{ scale: 1.02 }}
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/90 via-bg-dark/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)]/90 via-[var(--bg-primary)]/30 to-transparent" />
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
       
       <div className="relative p-8 h-full flex flex-col">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <p className="text-xs text-white/50 uppercase tracking-wider mb-1">{t('nav_destinations')}</p>
-            <p className="text-3xl font-bold font-display">{dest.city}</p>
+            <p className="text-xs text-[var(--text-secondary)] uppercase tracking-wider mb-1">{t('nav_destinations')}</p>
+            <p className="text-3xl font-bold font-display text-[var(--text-primary)]">{dest.city}</p>
           </div>
           <motion.div
             className="glass px-3 py-1.5 rounded-full text-sm font-medium text-sky"
@@ -54,18 +58,18 @@ function DestinationCard({ dest, index }: { dest: typeof destinations[0]; index:
         </div>
 
         <div className="flex-1 flex flex-col justify-end">
-          <div className="flex items-center gap-3 text-white/60 text-sm mb-6">
+          <div className="flex items-center gap-3 text-[var(--text-secondary)] text-sm mb-6">
             <Plane className="w-4 h-4" />
             <span>{dest.flights}</span>
           </div>
 
-          <div className="pt-6 border-t border-white/10">
+          <div className="pt-6 border-t border-[var(--border-primary)]">
             <div className="relative mb-1" onClick={scrollToQuote} style={{ cursor: 'pointer' }}>
-              <p className="text-3xl font-bold font-display text-sky blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-white/20 to-white/5 select-none pointer-events-none">
+              <p className="text-3xl font-bold font-display text-sky blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-primary)]/20 to-[var(--text-primary)]/5 select-none pointer-events-none">
                 {dest.price}
               </p>
               <motion.div
-                className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-bg-dark/80 via-sky/20 to-bg-dark/80 rounded-lg"
+                className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-[var(--bg-primary)]/80 via-sky/20 to-[var(--bg-primary)]/80 rounded-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
@@ -75,8 +79,8 @@ function DestinationCard({ dest, index }: { dest: typeof destinations[0]; index:
                 </span>
               </motion.div>
             </div>
-            <p className="text-sm text-white/50">{t('how_step_3_desc')}</p>
-            <p className="text-sm text-white/40 mt-1 blur-[4px] select-none pointer-events-none">
+            <p className="text-sm text-[var(--text-secondary)]">{t('how_step_3_desc')}</p>
+            <p className="text-sm text-[var(--text-secondary)]/80 mt-1 blur-[4px] select-none pointer-events-none">
               ≈ {installment}
             </p>
           </div>
@@ -94,7 +98,7 @@ export default function Destinations() {
   const { t } = useLanguage()
 
   return (
-    <section id="destinos" className="py-28 md:py-32 relative">
+    <section id="destinos" className="py-28 md:py-32 relative bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           className="text-center max-w-3xl mx-auto mb-16"
@@ -106,10 +110,10 @@ export default function Destinations() {
           <span className="inline-block px-4 py-1.5 glass rounded-full text-sm font-medium text-sky mb-4">
             {t('dest_label')}
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 text-[var(--text-primary)]">
             {t('dest_title_1')} <span className="text-sky">{t('dest_title_2')}</span>
           </h2>
-          <p className="text-lg text-white/60">
+          <p className="text-lg text-[var(--text-secondary)]">
             {t('dest_subtitle')}
           </p>
         </motion.div>
@@ -128,7 +132,7 @@ export default function Destinations() {
         >
           <motion.a
             href="#destinos"
-            className="inline-flex items-center gap-3 px-8 py-4 glass-strong font-semibold rounded-full hover:bg-white/10 transition-all border border-white/10"
+            className="inline-flex items-center gap-3 px-8 py-4 glass-strong font-semibold rounded-full hover:bg-[var(--glass-strong-bg)] transition-all border border-[var(--border-primary)]"
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
           >
