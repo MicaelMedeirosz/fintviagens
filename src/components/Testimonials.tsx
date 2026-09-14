@@ -1,11 +1,13 @@
 'use client'
 
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Star } from 'lucide-react'
+import { Star, X, Expand } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 function TestimonialCard({
 testimonial,
+onOpenVideo,
 }: {
 testimonial: {
 name?: string
@@ -18,8 +20,10 @@ isCta?: boolean
 ctaText?: string
 ctaButton?: string
 }
+onOpenVideo: (media: string, name?: string) => void
 }) {
 const hasMedia = testimonial.media && testimonial.mediaType !== 'none'
+const isVideo = testimonial.mediaType === 'video'
 
 if (testimonial.isCta) {
   return (
@@ -67,7 +71,8 @@ return (
     </div>
 
     {hasMedia && (
-      <div className="relative aspect-[3/4] w-full max-w-xs rounded-xl overflow-hidden bg-[var(--bg-secondary)]/50">
+      <div className="relative aspect-[3/4] w-full max-w-xs rounded-xl overflow-hidden bg-[var(--bg-secondary)]/50 cursor-pointer group"
+        onClick={() => isVideo && onOpenVideo(testimonial.media!)}>
         {testimonial.mediaType === 'video' ? (
           <video
             src={testimonial.media}
@@ -86,14 +91,94 @@ return (
             loading="lazy"
           />
         )}
+        {isVideo && (
+          <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <Expand className="w-12 h-12 text-white bg-black/50 rounded-full p-2" />
+          </div>
+        )}
       </div>
     )}
   </div>
 )
 }
 
+function VideoModal({ isOpen, onClose, videoSrc }: { isOpen: boolean; onClose: () => void; videoSrc: string }) {
+const videoRef = useRef<HTMLVideoElement>(null)
+
+useEffect(() => {
+  if (isOpen && videoRef.current) {
+    videoRef.current.muted = false
+    videoRef.current.play().catch(() => {})
+  } else if (videoRef.current) {
+    videoRef.current.pause()
+  }
+}, [isOpen])
+
+if (!isOpen) return null
+
+return (
+  <motion.div
+    className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    onClick={onClose}
+    role="dialog"
+    aria-modal="true"
+    aria-label="Video testimonial"
+  >
+    <motion.div
+      className="absolute inset-0 bg-black/90"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    />
+    <motion.div
+      className="relative w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl"
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.9, opacity: 0 }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+        aria-label="Close video"
+      >
+        <X className="w-5 h-5" />
+      </button>
+      <video
+        ref={videoRef}
+        src={videoSrc}
+        className="w-full h-full object-contain"
+        controls
+        autoPlay
+        playsInline
+      />
+    </motion.div>
+  </motion.div>
+)
+}
+
 export default function Testimonials() {
 const { t } = useLanguage()
+const [openVideo, setOpenVideo] = useState<{ src: string } | null>(null)
+const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+const handleOpenVideo = (src: string) => {
+  setOpenVideo({ src })
+  if (scrollContainerRef.current) {
+    scrollContainerRef.current.style.animationPlayState = 'paused'
+  }
+}
+
+const handleCloseVideo = () => {
+  setOpenVideo(null)
+  if (scrollContainerRef.current) {
+    scrollContainerRef.current.style.animationPlayState = 'running'
+  }
+}
 
 const testimonials = [
 {
@@ -119,6 +204,38 @@ text: t('testimonial_3_text'),
 rating: 5,
 media: t('testimonial_3_media'),
 mediaType: t('testimonial_3_media_type') as 'image' | 'video' | 'none',
+},
+{
+name: t('testimonial_4_name'),
+location: t('testimonial_4_location'),
+text: t('testimonial_4_text'),
+rating: 5,
+media: t('testimonial_4_media'),
+mediaType: t('testimonial_4_media_type') as 'image' | 'video' | 'none',
+},
+{
+name: t('testimonial_5_name'),
+location: t('testimonial_5_location'),
+text: t('testimonial_5_text'),
+rating: 5,
+media: t('testimonial_5_media'),
+mediaType: t('testimonial_5_media_type') as 'image' | 'video' | 'none',
+},
+{
+name: t('testimonial_6_name'),
+location: t('testimonial_6_location'),
+text: t('testimonial_6_text'),
+rating: 5,
+media: t('testimonial_6_media'),
+mediaType: t('testimonial_6_media_type') as 'image' | 'video' | 'none',
+},
+{
+name: t('testimonial_7_name'),
+location: t('testimonial_7_location'),
+text: t('testimonial_7_text'),
+rating: 5,
+media: t('testimonial_7_media'),
+mediaType: t('testimonial_7_media_type') as 'image' | 'video' | 'none',
 },
 {
 isCta: true,
@@ -155,7 +272,7 @@ return (
       </motion.div>
 
       <div className="relative">
-        <div className="overflow-hidden">
+        <div className="overflow-hidden" ref={scrollContainerRef}>
           <div
             className="flex animate-scroll"
             style={{ width: 'max-content' }}
@@ -168,7 +285,7 @@ return (
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
               >
-                <TestimonialCard testimonial={testimonial} />
+                <TestimonialCard testimonial={testimonial} onOpenVideo={handleOpenVideo} />
               </motion.div>
             ))}
 
@@ -177,7 +294,7 @@ return (
                 key={index + 100}
                 className="w-[350px] sm:w-[400px] flex-shrink-0 px-4"
               >
-                <TestimonialCard testimonial={testimonial} />
+                <TestimonialCard testimonial={testimonial} onOpenVideo={handleOpenVideo} />
               </motion.div>
             ))}
           </div>
@@ -187,6 +304,12 @@ return (
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[var(--bg-primary)] to-transparent pointer-events-none" />
       </div>
     </div>
+
+    <VideoModal
+      isOpen={!!openVideo}
+      onClose={handleCloseVideo}
+      videoSrc={openVideo?.src || ''}
+    />
 
     <style jsx global>{`
       @keyframes scroll {

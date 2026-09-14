@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle2, Plane, Shield } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Plane, Shield, Package } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 interface FlightCardProps {
@@ -76,6 +76,121 @@ const scrollToHow = () => {
         <p className="text-sm text-[var(--text-secondary)] blur-[4px] select-none pointer-events-none">
           {installment}
         </p>
+      </div>
+    </motion.div>
+  )
+}
+
+const heroPackages = [
+  {
+    id: 'europa-classica',
+    name: 'Europa Clássica',
+    tagline: 'Paris, Roma, Barcelona',
+    duration: '10 dias',
+    highlights: ['Voos diretos', 'Hotéis 4★ central', 'Transfers incluídos', 'Guia em PT/EN'],
+    price: 'CHF 2.890',
+    installment: '12x CHF 240,83',
+    gradient: 'from-blue-600 via-indigo-600 to-purple-700',
+  },
+  {
+    id: 'brasil-raizes',
+    name: 'Brasil: Raízes & Praias',
+    tagline: 'São Paulo, Rio, Salvador',
+    duration: '14 dias',
+    highlights: ['Voos Swiss/LATAM', 'Hotéis beira-mar', 'Passeios inclusos', 'Seguro viagem'],
+    price: 'CHF 3.450',
+    installment: '12x CHF 287,50',
+    gradient: 'from-green-600 via-emerald-600 to-teal-700',
+  },
+  {
+    id: 'asia-essencial',
+    name: 'Ásia Essencial',
+    tagline: 'Tóquio, Seul, Singapura',
+    duration: '12 dias',
+    highlights: ['Voos premium', 'Hotéis 5★', 'JR Pass incluso', 'Concierge 24h'],
+    price: 'CHF 4.290',
+    installment: '12x CHF 357,50',
+    gradient: 'from-red-600 via-orange-600 to-amber-700',
+  },
+  {
+    id: 'eua-costa-oeste',
+    name: 'EUA Costa Oeste',
+    tagline: 'LA, San Francisco, Vegas',
+    duration: '11 dias',
+    highlights: ['Voos United/Swiss', 'Hotéis 4★', 'Carro alugado', 'Parques inclusos'],
+    price: 'CHF 3.890',
+    installment: '12x CHF 324,17',
+    gradient: 'from-indigo-600 via-blue-600 to-cyan-600',
+  },
+]
+
+const scrollToQuote = () => {
+  const el = document.getElementById('cotar')
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+}
+
+function HeroPackageCard({ pkg, index }: { pkg: typeof heroPackages[0]; index: number }) {
+  const { t } = useLanguage()
+
+  return (
+    <motion.div
+      key={pkg.id}
+      className="group relative rounded-xl overflow-hidden glass p-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1, duration: 0.4 }}
+      whileHover={{ y: -4, scale: 1.02 }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br opacity-10" style={{ background: pkg.gradient }} />
+      
+      <div className="relative flex flex-col h-full">
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <p className="text-xs text-[var(--text-secondary)] uppercase tracking-wider mb-1">{t('pkg_label')}</p>
+            <p className="text-lg font-bold font-display text-[var(--text-primary)]">{pkg.name}</p>
+            <p className="text-sky/80 text-sm mt-0.5">{pkg.tagline}</p>
+          </div>
+          <motion.div
+            className="glass px-2 py-1 rounded-full text-xs font-medium text-sky"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Package className="w-3 h-3 inline mr-1" />
+            {pkg.duration}
+          </motion.div>
+        </div>
+
+        <div className="flex-1 flex flex-col justify-between space-y-3 mb-4">
+          {pkg.highlights.map((highlight, i) => (
+            <div key={i} className="flex items-center gap-2 text-[var(--text-secondary)] text-xs group-hover:text-[var(--text-primary)] transition-colors">
+              <span className="w-4 h-4 flex items-center justify-center glass rounded text-sky/80">
+                <CheckCircle2 className="w-3 h-3" />
+              </span>
+              <span className="truncate">{highlight}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-t border-[var(--border-primary)] pt-3">
+          <div className="relative mb-1" onClick={scrollToQuote} style={{ cursor: 'pointer' }}>
+            <p className="text-xl font-bold font-display text-sky blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-primary)]/20 to-[var(--text-primary)]/5 select-none pointer-events-none">
+              {pkg.price}
+            </p>
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-[var(--bg-primary)]/80 via-sky/20 to-[var(--bg-primary)]/80 rounded-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <span className="text-xs font-medium text-sky/80 px-2 py-0.5 glass rounded-full animate-pulse">
+                {t('cta_step_2')}
+              </span>
+            </motion.div>
+          </div>
+          <p className="text-xs text-[var(--text-secondary)]">{t('pkg_from')}</p>
+          <p className="text-xs text-[var(--text-secondary)]/80 mt-0.5 blur-[4px] select-none pointer-events-none">
+            ≈ {pkg.installment}
+          </p>
+        </div>
       </div>
     </motion.div>
   )
@@ -298,42 +413,9 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-br from-sky/10 via-transparent to-navy/10" />
                 
                 <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <FlightCard 
-                    from="ZRH" 
-                    to="GRU" 
-                    price="CHF 890" 
-                    installment="12x CHF 74,17" 
-                    airline="Swiss" 
-                    direct={true}
-                    delay={0.1}
-                  />
-                  <FlightCard 
-                    from="GVA" 
-                    to="JFK" 
-                    price="CHF 650" 
-                    installment="12x CHF 54,17" 
-                    airline="Swiss" 
-                    direct={true}
-                    delay={0.2}
-                  />
-                  <FlightCard 
-                    from="ZRH" 
-                    to="LIS" 
-                    price="CHF 280" 
-                    installment="12x CHF 23,33" 
-                    airline="Swiss/TAP" 
-                    direct={true}
-                    delay={0.3}
-                  />
-                  <FlightCard 
-                    from="GVA" 
-                    to="MAD" 
-                    price="CHF 180" 
-                    installment="12x CHF 15,00" 
-                    airline="Swiss/Iberia" 
-                    direct={true}
-                    delay={0.4}
-                  />
+                  {heroPackages.map((pkg, index) => (
+                    <HeroPackageCard pkg={pkg} index={index} />
+                  ))}
                 </div>
 
                 <motion.div
@@ -351,7 +433,7 @@ export default function Hero() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {t('dest_view_all')}
+                    {t('pkg_view_all')}
                   </motion.button>
                 </motion.div>
               </div>
