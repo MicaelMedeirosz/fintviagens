@@ -9,11 +9,6 @@ const destinations = [
   { city: 'Nova York', code: 'JFK', flights: '14 voos/semana', price: 'CHF 650' },
   { city: 'Lisboa', code: 'LIS', flights: '21 voos/semana', price: 'CHF 280' },
   { city: 'Madrid', code: 'MAD', flights: '18 voos/semana', price: 'CHF 180' },
-  { city: 'Paris', code: 'CDG', flights: '28 voos/semana', price: 'CHF 150' },
-  { city: 'Londres', code: 'LHR', flights: '35 voos/semana', price: 'CHF 120' },
-  { city: 'Dubai', code: 'DXB', flights: '7 voos/semana', price: 'CHF 780' },
-  { city: 'Tóquio', code: 'NRT', flights: '5 voos/semana', price: 'CHF 1.150' },
-  { city: 'Rio de Janeiro', code: 'GIG', flights: '8 voos/semana', price: 'CHF 920' },
 ]
 
 const scrollToQuote = () => {
@@ -25,15 +20,10 @@ function DestinationCard({ dest, index }: { dest: typeof destinations[0]; index:
   const { t } = useLanguage()
   const installment = `12x de CHF ${(parseFloat(dest.price.replace('CHF ', '').replace(',', '')) / 12).toFixed(2)}/mês`
 
-  const cityKey = dest.city.toLowerCase().replace(' ', '-').replace('ã', 'a').replace('é', 'e')
-
   return (
     <motion.div
       key={dest.city}
-      className="group relative rounded-2xl overflow-hidden"
-      style={{ 
-        backgroundImage: `linear-gradient(135deg, var(--dest-${cityKey}-start), var(--dest-${cityKey}-end))`
-      } as React.CSSProperties}
+      className="group relative rounded-2xl overflow-hidden glass-strong"
       initial={{ opacity: 0, y: 40, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
@@ -118,7 +108,7 @@ export default function Destinations() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {destinations.map((dest, index) => (
             <DestinationCard dest={dest} index={index} />
           ))}

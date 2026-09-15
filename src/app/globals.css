@@ -104,6 +104,15 @@ h1, h2, h3, h4, h5, h6 {
     text-wrap: balance;
   }
   
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
   .bg-gradient-mesh {
     background: 
       radial-gradient(ellipse 80% 50% at 50% -20%, rgba(63, 184, 224, 0.15), transparent),
