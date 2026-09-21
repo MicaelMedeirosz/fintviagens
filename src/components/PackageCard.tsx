@@ -33,7 +33,7 @@ export default function PackageCard({ pkg, delay = 0 }: PackageCardProps) {
       aria-label={`Pacote para ${pkg.city}, ${pkg.country}`}
     >
       <div className="relative h-full flex flex-col">
-        <div className="relative flex-[60%] overflow-hidden">
+        <div className="relative flex-[65%] overflow-hidden">
           <img
             src={pkg.image}
             alt={`Pacote para ${pkg.city}, ${pkg.country}`}
@@ -57,16 +57,16 @@ export default function PackageCard({ pkg, delay = 0 }: PackageCardProps) {
           </div>
         </div>
 
-        <div className="flex-[40%] flex flex-col justify-between p-4 bg-[var(--bg-secondary)]/50 backdrop-blur-sm border-t border-[var(--border-primary)]">
+        <div className="flex-[35%] flex flex-col justify-between p-3 bg-[var(--bg-secondary)]/50 backdrop-blur-sm border-t border-[var(--border-primary)]">
           <div>
-            <div className="relative mb-3">
+            <div className="relative">
               <p className="text-2xl font-bold font-display text-sky blur-[8px] text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-primary)]/20 to-[var(--text-primary)]/5 select-none pointer-events-none">
                 CHF 0.000
               </p>
             </div>
           </div>
 
-          <div className="pt-3 border-t border-[var(--border-primary)] space-y-3">
+          <div className="pt-1 border-t border-[var(--border-primary)] space-y-2">
             <p className="text-sm text-[var(--text-secondary)] flex items-center gap-1.5">
               <span className="font-medium">{t('package_includes')}</span>
               <span className="text-[var(--text-secondary)]/60">•</span>
