@@ -198,7 +198,6 @@ ${TRACKING_CODE}`
                   id="tipoViagem"
                   name="tipoViagem"
                   required
-                  defaultValue="Somente Ida"
                   value={tipoViagem}
                   onChange={(e) => setTipoViagem(e.target.value)}
                   className={inputStyle}

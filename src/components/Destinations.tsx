@@ -110,7 +110,7 @@ export default function Destinations() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {destinations.map((dest, index) => (
-            <DestinationCard dest={dest} index={index} />
+            <DestinationCard key={dest.code} dest={dest} index={index} />
           ))}
         </div>
 

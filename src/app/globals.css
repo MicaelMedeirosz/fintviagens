@@ -46,12 +46,12 @@
   --bg-primary: #F8FAFC;
   --bg-secondary: #FFFFFF;
   --text-primary: #0F172A;
-  --text-secondary: #64748B;
-  --border-primary: #E2E8F0;
-  --glass-bg: rgba(15, 23, 42, 0.03);
-  --glass-border: rgba(15, 23, 42, 0.08);
-  --glass-strong-bg: rgba(15, 23, 42, 0.06);
-  --glass-strong-border: rgba(15, 23, 42, 0.12);
+  --text-secondary: #475569;
+  --border-primary: #CBD5E1;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(15, 23, 42, 0.15);
+  --glass-strong-bg: rgba(255, 255, 255, 0.95);
+  --glass-strong-border: rgba(15, 23, 42, 0.2);
 
   --dest-sao-paulo-start: #dbeafe;
   --dest-sao-paulo-end: #3b82f6;
@@ -182,4 +182,42 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out forwards;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.3);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.light input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  opacity: 0.9;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  color: var(--text-primary);
+}
+
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  color: var(--text-primary);
+}
+
+input[type="date"]::-webkit-datetime-edit-text {
+  color: var(--text-secondary);
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: var(--text-primary);
+}
+
+.light input[type="date"] {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.light input[type="date"]:focus {
+  background-color: var(--bg-secondary);
 }

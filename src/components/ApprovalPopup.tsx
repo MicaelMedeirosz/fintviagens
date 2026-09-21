@@ -6,7 +6,7 @@ import { CheckCircle2, XCircle, AlertCircle, ChevronRight, MessageSquare, Extern
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const WHATSAPP_NUMBER = '41798955348'
-const TRACKING_CODE = '#FINT-SITE-APPROVAL'
+const TRACKING_CODE = '#FVAPROVAÇÃO'
 
 type Step = 'welcome' | 'questions' | 'error' | 'success'
 
@@ -80,18 +80,23 @@ export default function ApprovalPopup() {
     if (validateAnswers(answers)) {
       setStep('success')
       setTimeout(() => {
-        openWhatsApp()
+        openWhatsApp(answers)
       }, 1500)
     }
   }
 
-  const openWhatsApp = () => {
-    const message = `${t('wa_intro')}
+  const openWhatsApp = (finalAnswers: Answers) => {
+    const formatDate = (dateStr: string) => {
+      const parts = dateStr.split('-')
+      return parts.length === 3 ? `${parts[2]}.${parts[1]}.${parts[0]}` : dateStr
+    }
+    
+    const message = `Olá Fint Viagens, gostaria de fazer a aprovação.
 
 *Pré-aprovação Fint Viagens*
-Permissão B/C > 1 ano: ${answers.permit ? 'Sim' : 'Não'}
-Reside na Suíça: ${answers.residence ? 'Sim' : 'Não'}
-Data de nascimento: ${answers.birthDate ? new Date(answers.birthDate).toLocaleDateString('pt-BR') : 'Não informada'}
+Permissão B/C > 1 ano: ${finalAnswers.permit ? 'Sim' : 'Não'}
+Reside na Suíça: ${finalAnswers.residence ? 'Sim' : 'Não'}
+Data de nascimento: ${finalAnswers.birthDate ? formatDate(finalAnswers.birthDate) : 'Não informada'}
 
 ${TRACKING_CODE}`
 
@@ -115,7 +120,7 @@ ${TRACKING_CODE}`
       if (validateAnswers(newAnswers)) {
         setStep('success')
         setTimeout(() => {
-          openWhatsApp()
+          openWhatsApp(newAnswers)
         }, 1500)
       }
     } else {
@@ -248,9 +253,9 @@ ${TRACKING_CODE}`
                           <motion.button
                             onClick={() => handleBooleanAnswer(true)}
                             className={`flex flex-col items-center gap-2 px-4 py-5 rounded-xl border-2 transition-all ${
-                              answers.permit === true
-                                ? 'border-sky bg-sky/10 text-sky'
-                                : 'border-[var(--border-primary)] text-[var(--text-primary)] hover:border-sky/50'
+                              answers[questions[currentQuestion].key as keyof Answers] === true
+                                ? 'border-sky bg-sky/20 text-sky'
+                                : 'border-[var(--border-primary)] bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:border-sky/50 hover:bg-sky/5'
                             }`}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
@@ -261,9 +266,9 @@ ${TRACKING_CODE}`
                           <motion.button
                             onClick={() => handleBooleanAnswer(false)}
                             className={`flex flex-col items-center gap-2 px-4 py-5 rounded-xl border-2 transition-all ${
-                              answers.permit === false || answers.residence === false
-                                ? 'border-red/50 bg-red/10 text-red'
-                                : 'border-[var(--border-primary)] text-[var(--text-primary)] hover:border-red/50'
+                              answers[questions[currentQuestion].key as keyof Answers] === false
+                                ? 'border-red/50 bg-red/20 text-red'
+                                : 'border-[var(--border-primary)] bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:border-red/50 hover:bg-red/5'
                             }`}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
@@ -285,7 +290,7 @@ ${TRACKING_CODE}`
                             value={answers.birthDate}
                             onChange={handleDateChange}
                             max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-4 py-3 bg-[var(--bg-secondary)]/60 border border-[var(--border-primary)] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:border-sky focus:outline-none focus:ring-2 focus:ring-sky/20 transition-all"
+                            className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:border-sky focus:outline-none focus:ring-2 focus:ring-sky/20 transition-all"
                           />
                           <p className="text-xs text-[var(--text-secondary)] mt-1">
                             {t('approval_error_age').split('.')[0]}
@@ -305,7 +310,7 @@ ${TRACKING_CODE}`
                             ? answers[questions[currentQuestion].key as keyof Answers] !== null
                             : answers.birthDate)
                             ? 'bg-sky text-navy hover:bg-sky/90 shadow-lg shadow-sky/30'
-                            : 'bg-[var(--bg-secondary)] text-[var(--text-secondary)] cursor-not-allowed'
+                            : 'bg-[var(--border-primary)] text-[var(--text-secondary)] cursor-not-allowed'
                         }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
