@@ -260,6 +260,10 @@ export const translations = {
     approval_error_residence: 'Não é possível prosseguir com a aprovação sem residir na Suíça.',
     approval_success: 'Perfeito! Você atende a todos os requisitos. Um consultor finalizará a aprovação no WhatsApp.',
     approval_redirecting: 'Redirecionando para o WhatsApp...',
+
+    package_includes: 'Voo + Hotel + Transfer',
+    package_availability: 'sujeito a disponibilidade',
+    package_quote_now: 'Cotar agora',
   },
 
   de: {
@@ -513,6 +517,10 @@ export const translations = {
     approval_error_residence: 'Ohne Wohnsitz in der Schweiz ist eine Genehmigung nicht möglich.',
     approval_success: 'Perfekt! Sie erfüllen alle Voraussetzungen. Ein Berater schließt die Genehmigung über WhatsApp ab.',
     approval_redirecting: 'Weiterleitung zu WhatsApp...',
+
+    package_includes: 'Flug + Hotel + Transfer',
+    package_availability: 'vorbehaltlich Verfügbarkeit',
+    package_quote_now: 'Jetzt anfragen',
   },
 
   en: {
@@ -766,6 +774,10 @@ export const translations = {
     approval_error_residence: 'Cannot proceed with approval without residing in Switzerland.',
     approval_success: 'Perfect! You meet all requirements. A consultant will finalize the approval on WhatsApp.',
     approval_redirecting: 'Redirecting to WhatsApp...',
+
+    package_includes: 'Flight + Hotel + Transfer',
+    package_availability: 'subject to availability',
+    package_quote_now: 'Quote now',
   },
 
   es: {
@@ -1018,8 +1030,13 @@ testimonial_1_name: 'Maria Santos',
     approval_error_age: 'No es posible continuar. Debes tener 18 años o más.',
     approval_error_residence: 'No es posible continuar con la aprobación sin residir en Suiza.',
     approval_success: '¡Perfecto! Cumples todos los requisitos. Un consultor finalizará la aprobación por WhatsApp.',
-    approval_redirecting: 'Redirigiendo a WhatsApp...',
+approval_redirecting: 'Redirigiendo a WhatsApp...',
+
+    package_includes: 'Vuelo + Hotel + Transfer',
+    package_availability: 'sujeto a disponibilidad',
+    package_quote_now: 'Cotizar ahora',
   },
+
 }
 
 export type TranslationKey = keyof typeof translations.pt

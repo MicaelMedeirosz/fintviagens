@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2, Plane } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import PackageCard from './PackageCard'
+import { packageDestinations } from '@/lib/packageDestinations'
 
 interface FlightCardProps {
   from: string
@@ -208,7 +210,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-mesh">
-      <canvas ref={canvasRef} className="absolute inset-0" aria-hidden="true" />
+      <canvas ref={canvasRef} className="absolute inset-0 opacity-10" aria-hidden="true" />
 
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(63,184,224,0.08)_0%,_transparent_70%)]" />
 
@@ -216,7 +218,7 @@ export default function Hero() {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-navy/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />
 
       <div className="relative max-w-7xl mx-auto px-6 py-32 pt-40">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -294,18 +296,24 @@ export default function Hero() {
 
           <motion.div
             className="relative"
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
           >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[560px]">
+              {packageDestinations.map((pkg, i) => (
+                <PackageCard key={pkg.id} pkg={pkg} delay={i * 0.08} />
+              ))}
+            </div>
+
             <motion.div
               className="absolute -bottom-6 -left-6 w-32 h-32 bg-sky/20 rounded-full blur-2xl"
-              animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+              animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
               transition={{ duration: 4, repeat: Infinity }}
             />
             <motion.div
               className="absolute -top-6 -right-6 w-24 h-24 bg-navy/30 rounded-full blur-2xl"
-              animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
+              animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
               transition={{ duration: 5, repeat: Infinity, delay: 1 }}
             />
           </motion.div>
