@@ -7,6 +7,7 @@ import { packageDestinations } from '@/lib/packageDestinations'
 interface PackageCardProps {
   pkg: typeof packageDestinations[0]
   delay?: number
+  onQuoteClick?: (pkg: typeof packageDestinations[0]) => void
 }
 
 const scrollToQuote = () => {
@@ -14,8 +15,17 @@ const scrollToQuote = () => {
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 
-export default function PackageCard({ pkg, delay = 0 }: PackageCardProps) {
+export default function PackageCard({ pkg, delay = 0, onQuoteClick }: PackageCardProps) {
   const { t } = useLanguage()
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (onQuoteClick) {
+      onQuoteClick(pkg)
+    } else {
+      scrollToQuote()
+    }
+  }
 
   return (
     <motion.article
@@ -25,11 +35,11 @@ export default function PackageCard({ pkg, delay = 0 }: PackageCardProps) {
       transition={{ duration: 0.5, delay, ease: 'easeOut' }}
       whileHover={{ scale: 1.02, y: -4 }}
       whileTap={{ scale: 0.98 }}
-      onClick={scrollToQuote}
+      onClick={handleClick}
       style={{ touchAction: 'manipulation' }}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToQuote() } }}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(e as any) } }}
       aria-label={`Pacote para ${pkg.city}, ${pkg.country}`}
     >
       <div className="relative h-full flex flex-col">
@@ -74,7 +84,7 @@ export default function PackageCard({ pkg, delay = 0 }: PackageCardProps) {
             </p>
             
             <motion.button
-              onClick={(e) => { e.stopPropagation(); scrollToQuote() }}
+              onClick={handleClick}
               className="w-full px-6 py-3 bg-sky text-navy font-semibold rounded-full shadow-lg shadow-sky/30 hover:bg-sky/90 transition-all min-h-[48px] focus:outline-none focus:ring-2 focus:ring-sky focus:ring-offset-2 focus:ring-offset-[var(--bg-primary)]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

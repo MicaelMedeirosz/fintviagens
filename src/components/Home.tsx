@@ -19,11 +19,15 @@ import Pricing from './Pricing'
 import CTA from './CTA'
 import Footer from './Footer'
 import ApprovalPopup from './ApprovalPopup'
+import PackageQuotePopup from './PackageQuotePopup'
+import { packageDestinations } from '@/lib/packageDestinations'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Home() {
   const lenisRef = useRef<Lenis | null>(null)
+  const [showPackageQuote, setShowPackageQuote] = useState(false)
+  const [selectedPackage, setSelectedPackage] = useState<typeof packageDestinations[0] | null>(null)
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -48,7 +52,10 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
+      <Hero onPackageQuoteClick={(pkg) => {
+    setSelectedPackage(pkg)
+    setShowPackageQuote(true)
+  }} />
       <TrustBar />
       <HowItWorks />
       <Destinations />
@@ -59,6 +66,14 @@ export default function Home() {
       <CTA />
       <Footer />
       <ApprovalPopup />
+      <PackageQuotePopup
+        isOpen={showPackageQuote}
+        onClose={() => {
+          setShowPackageQuote(false)
+          setSelectedPackage(null)
+        }}
+        selectedPackage={selectedPackage}
+      />
     </>
   )
 }

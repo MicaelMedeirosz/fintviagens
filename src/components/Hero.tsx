@@ -88,7 +88,11 @@ const scrollToQuote = () => {
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 
-export default function Hero() {
+interface HeroProps {
+  onPackageQuoteClick?: (pkg: typeof packageDestinations[0]) => void
+}
+
+export default function Hero({ onPackageQuoteClick }: HeroProps) {
   const { t } = useLanguage()
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -302,7 +306,7 @@ export default function Hero() {
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[560px]">
               {packageDestinations.map((pkg, i) => (
-                <PackageCard key={pkg.id} pkg={pkg} delay={i * 0.08} />
+                <PackageCard key={pkg.id} pkg={pkg} delay={i * 0.08} onQuoteClick={onPackageQuoteClick} />
               ))}
             </div>
 

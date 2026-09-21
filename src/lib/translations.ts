@@ -264,6 +264,13 @@ export const translations = {
     package_includes: 'Voo + Hotel + Transfer',
     package_availability: 'sujeito a disponibilidade',
     package_quote_now: 'Cotar agora',
+
+    package_quote_title: 'Cotar Pacote',
+    package_quote_subtitle: 'Preencha os dados para receber sua cotação personalizada',
+    package_field_checkin: 'Data de check-in',
+    package_field_checkout: 'Data de check-out',
+    package_wa_intro: 'Olá Fint Viagens, vim pelo site e gostaria de cotar este pacote.',
+    package_step_passengers_dates: 'Passageiros & Datas',
   },
 
   de: {
@@ -521,6 +528,13 @@ export const translations = {
     package_includes: 'Flug + Hotel + Transfer',
     package_availability: 'vorbehaltlich Verfügbarkeit',
     package_quote_now: 'Jetzt anfragen',
+
+    package_quote_title: 'Paket anfragen',
+    package_quote_subtitle: 'Füllen Sie die Daten aus für Ihr persönliches Angebot',
+    package_field_checkin: 'Check-in Datum',
+    package_field_checkout: 'Check-out Datum',
+    package_wa_intro: 'Hallo Fint Viagens, ich komme von der Website und möchte dieses Paket anfragen.',
+    package_step_passengers_dates: 'Passagiere & Daten',
   },
 
   en: {
@@ -778,6 +792,13 @@ export const translations = {
     package_includes: 'Flight + Hotel + Transfer',
     package_availability: 'subject to availability',
     package_quote_now: 'Quote now',
+
+    package_quote_title: 'Quote Package',
+    package_quote_subtitle: 'Fill in your details for a personalized quote',
+    package_field_checkin: 'Check-in date',
+    package_field_checkout: 'Check-out date',
+    package_wa_intro: 'Hello Fint Viagens, I came from the website and would like to quote this package.',
+    package_step_passengers_dates: 'Passengers & Dates',
   },
 
   es: {
@@ -1035,6 +1056,13 @@ approval_redirecting: 'Redirigiendo a WhatsApp...',
     package_includes: 'Vuelo + Hotel + Transfer',
     package_availability: 'sujeto a disponibilidad',
     package_quote_now: 'Cotizar ahora',
+
+    package_quote_title: 'Cotizar Paquete',
+    package_quote_subtitle: 'Complete los datos para recibir su cotización',
+    package_field_checkin: 'Fecha de check-in',
+    package_field_checkout: 'Fecha de check-out',
+    package_wa_intro: 'Hola Fint Viagens, vengo del sitio web y me gustaría cotizar este paquete.',
+    package_step_passengers_dates: 'Pasajeros y Fechas',
   },
 
 }
