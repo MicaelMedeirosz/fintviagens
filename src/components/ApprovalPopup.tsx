@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, XCircle, AlertCircle, ChevronRight, MessageSquare, ExternalLink } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -27,12 +27,33 @@ export default function ApprovalPopup() {
   })
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [errorMessage, setErrorMessage] = useState('')
+  const [isMobile, setIsMobile] = useState(false)
+  const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const previousOverflow = useRef<string>('')
 
   const questions = [
     { key: 'permit', label: t('approval_q1'), type: 'boolean' as const },
     { key: 'birthDate', label: t('approval_q2'), type: 'date' as const },
     { key: 'residence', label: t('approval_q3'), type: 'boolean' as const },
   ]
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (isOpen) {
+      previousOverflow.current = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+    }
+    return () => {
+      document.body.style.overflow = previousOverflow.current
+    }
+  }, [isOpen])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,7 +74,7 @@ export default function ApprovalPopup() {
     }
 
     if (answersToCheck.birthDate) {
-      const birth = new Date(answersToCheck.birthDate)
+      const birth = new Date(answersToCheck.birthDate + 'T00:00:00')
       const today = new Date()
       let age = today.getFullYear() - birth.getFullYear()
       const monthDiff = today.getMonth() - birth.getMonth()
@@ -139,7 +160,24 @@ ${TRACKING_CODE}`
     setErrorMessage('')
   }
 
+  const handleBackdropClick = () => {
+    if (isMobile) return
+    setIsOpen(false)
+  }
+
   if (!isOpen && step === 'welcome') return null
+
+  const containerClassName = isMobile
+    ? "fixed inset-x-0 bottom-0 z-50 rounded-t-2xl sm:rounded-tl-2xl sm:rounded-tr-2xl border-t border-[var(--border-primary)]"
+    : "fixed bottom-6 right-6 z-50 max-w-md w-full mx-4 rounded-2xl"
+
+  const animationVariants = isMobile
+    ? { initial: { opacity: 0, y: '100%' }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: '100%' } }
+    : { initial: { opacity: 0, y: 50, scale: 0.9 }, animate: { opacity: 1, y: 0, scale: 1 }, exit: { opacity: 0, y: 50, scale: 0.9 } }
+
+  const transition = isMobile
+    ? { type: 'spring', damping: 25, stiffness: 200 }
+    : { type: 'spring', damping: 25, stiffness: 300 }
 
   return (
     <AnimatePresence>
@@ -150,32 +188,32 @@ ${TRACKING_CODE}`
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
+            onClick={handleBackdropClick}
             aria-hidden="true"
           />
 
           <motion.div
-            className="fixed bottom-6 right-6 z-50 max-w-md w-full mx-4"
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className={containerClassName}
+            initial={animationVariants.initial}
+            animate={animationVariants.animate}
+            exit={animationVariants.exit}
+            transition={transition}
             onClick={e => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-labelledby="approval-title"
+            style={{ maxHeight: isMobile ? 'calc(100vh - env(safe-area-inset-bottom))' : 'auto' }}
           >
             <motion.div
-              className="glass-strong rounded-2xl shadow-2xl overflow-hidden border border-[var(--border-primary)]"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
+              ref={contentRef}
+              className="glass-strong shadow-2xl overflow-hidden border border-[var(--border-primary)] flex flex-col"
+              style={{ maxHeight: isMobile ? 'calc(100vh - env(safe-area-inset-bottom))' : 'auto' }}
             >
               <AnimatePresence mode="wait">
                 {step === 'welcome' && (
                   <motion.div
                     key="welcome"
-                    className="p-6"
+                    className="p-6 sm:p-6 flex-1 overflow-y-auto"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -192,22 +230,21 @@ ${TRACKING_CODE}`
                       </div>
                       <motion.button
                         onClick={() => setIsOpen(false)}
-                        className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] rounded-lg transition-colors"
+                        className="p-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] rounded-xl transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                         aria-label="Fechar"
                       >
-                        <XCircle className="w-5 h-5" />
+                        <XCircle className="w-6 h-6" />
                       </motion.button>
                     </div>
 
                     <motion.button
                       onClick={() => setStep('questions')}
-                      className="group w-full flex items-center justify-center gap-3 px-6 py-4 bg-sky text-navy font-bold text-lg rounded-xl hover:bg-sky/90 transition-all shadow-lg shadow-sky/30"
-                      whileHover={{ scale: 1.02, y: -2 }}
+                      className="group w-full flex items-center justify-center gap-3 px-6 py-5 bg-sky text-navy font-bold text-lg rounded-xl hover:bg-sky/90 transition-all shadow-lg shadow-sky/30 min-h-[48px]"
+                      whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <MessageSquare className="w-5 h-5" />
                       <span>{t('approval_continue')}</span>
                       <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </motion.button>
@@ -217,7 +254,7 @@ ${TRACKING_CODE}`
                 {step === 'questions' && (
                   <motion.div
                     key="questions"
-                    className="p-6"
+                    className="p-6 sm:p-6 flex-1 overflow-y-auto"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -238,12 +275,12 @@ ${TRACKING_CODE}`
                       </div>
                       <motion.button
                         onClick={() => setIsOpen(false)}
-                        className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] rounded-lg transition-colors"
+                        className="p-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] rounded-xl transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                         aria-label="Fechar"
                       >
-                        <XCircle className="w-5 h-5" />
+                        <XCircle className="w-6 h-6" />
                       </motion.button>
                     </div>
 
@@ -252,29 +289,27 @@ ${TRACKING_CODE}`
                         <div className="grid grid-cols-2 gap-3">
                           <motion.button
                             onClick={() => handleBooleanAnswer(true)}
-                            className={`flex flex-col items-center gap-2 px-4 py-5 rounded-xl border-2 transition-all ${
+                            className={`flex flex-col items-center gap-2 px-4 py-6 rounded-xl border-2 transition-all min-h-[56px] ${
                               answers[questions[currentQuestion].key as keyof Answers] === true
                                 ? 'border-sky bg-sky/20 text-sky'
-                                : 'border-[var(--border-primary)] bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:border-sky/50 hover:bg-sky/5'
+                                : 'border-[var(--border-primary)] bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:border-sky/50 hover:bg-sky/5 active:scale-[0.98]'
                             }`}
-                            whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
                             <CheckCircle2 className="w-8 h-8" />
-                            <span className="font-semibold">{t('approval_yes')}</span>
+                            <span className="font-semibold text-base">{t('approval_yes')}</span>
                           </motion.button>
                           <motion.button
                             onClick={() => handleBooleanAnswer(false)}
-                            className={`flex flex-col items-center gap-2 px-4 py-5 rounded-xl border-2 transition-all ${
+                            className={`flex flex-col items-center gap-2 px-4 py-6 rounded-xl border-2 transition-all min-h-[56px] ${
                               answers[questions[currentQuestion].key as keyof Answers] === false
                                 ? 'border-red/50 bg-red/20 text-red'
-                                : 'border-[var(--border-primary)] bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:border-red/50 hover:bg-red/5'
+                                : 'border-[var(--border-primary)] bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:border-red/50 hover:bg-red/5 active:scale-[0.98]'
                             }`}
-                            whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
                             <XCircle className="w-8 h-8" />
-                            <span className="font-semibold">{t('approval_no')}</span>
+                            <span className="font-semibold text-base">{t('approval_no')}</span>
                           </motion.button>
                         </div>
                       )}
@@ -290,11 +325,9 @@ ${TRACKING_CODE}`
                             value={answers.birthDate}
                             onChange={handleDateChange}
                             max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:border-sky focus:outline-none focus:ring-2 focus:ring-sky/20 transition-all"
+                            className="w-full px-4 py-4 bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-xl text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:border-sky focus:outline-none focus:ring-2 focus:ring-sky/20 transition-all text-base min-h-[48px]"
+                            inputMode="numeric"
                           />
-                          <p className="text-xs text-[var(--text-secondary)] mt-1">
-                            {t('approval_error_age').split('.')[0]}
-                          </p>
                         </div>
                       )}
 
@@ -305,14 +338,13 @@ ${TRACKING_CODE}`
                             ? answers[questions[currentQuestion].key as keyof Answers] === null
                             : !answers.birthDate
                         }
-                        className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                        className={`w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base transition-all min-h-[48px] ${
                           (questions[currentQuestion].type === 'boolean'
                             ? answers[questions[currentQuestion].key as keyof Answers] !== null
                             : answers.birthDate)
-                            ? 'bg-sky text-navy hover:bg-sky/90 shadow-lg shadow-sky/30'
+                            ? 'bg-sky text-navy hover:bg-sky/90 shadow-lg shadow-sky/30 active:scale-[0.98]'
                             : 'bg-[var(--border-primary)] text-[var(--text-secondary)] cursor-not-allowed'
                         }`}
-                        whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         {currentQuestion === questions.length - 1
@@ -322,7 +354,7 @@ ${TRACKING_CODE}`
                       </motion.button>
                     </div>
 
-                    <div className="mt-6 flex items-center justify-center gap-4 text-xs text-[var(--text-secondary)]">
+                    <div className="mt-6 flex items-center justify-center gap-3 text-xs text-[var(--text-secondary)]">
                       {questions.map((_, index) => (
                         <motion.div
                           key={index}
@@ -344,7 +376,7 @@ ${TRACKING_CODE}`
                 {step === 'error' && (
                   <motion.div
                     key="error"
-                    className="p-6 text-center"
+                    className="p-6 sm:p-6 text-center flex-1 overflow-y-auto"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -357,15 +389,14 @@ ${TRACKING_CODE}`
                     <p className="text-[var(--text-secondary)] mb-6">{errorMessage}</p>
                     <motion.button
                       onClick={resetFlow}
-                      className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[var(--bg-secondary)] text-[var(--text-primary)] font-semibold rounded-xl hover:bg-[var(--border-primary)] transition-colors"
-                      whileHover={{ scale: 1.02 }}
+                      className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[var(--bg-secondary)] text-[var(--text-primary)] font-semibold rounded-xl hover:bg-[var(--border-primary)] transition-colors min-h-[48px]"
                       whileTap={{ scale: 0.98 }}
                     >
                       Tentar novamente
                     </motion.button>
                     <motion.button
                       onClick={() => setIsOpen(false)}
-                      className="w-full mt-3 px-6 py-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium transition-colors"
+                      className="w-full mt-3 px-6 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium transition-colors min-h-[48px]"
                       whileTap={{ scale: 0.98 }}
                     >
                       Fechar
@@ -376,7 +407,7 @@ ${TRACKING_CODE}`
                 {step === 'success' && (
                   <motion.div
                     key="success"
-                    className="p-6 text-center"
+                    className="p-6 sm:p-6 text-center flex-1 overflow-y-auto"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -400,18 +431,38 @@ ${TRACKING_CODE}`
                       href={`https://wa.me/${WHATSAPP_NUMBER}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-sky text-navy font-bold rounded-xl hover:bg-sky/90 transition-all shadow-lg shadow-sky/30"
-                      whileHover={{ scale: 1.02, y: -2 }}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-sky text-navy font-bold rounded-xl hover:bg-sky/90 transition-all shadow-lg shadow-sky/30 min-h-[48px] min-w-[200px]"
+                      whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <MessageSquare className="w-5 h-5" />
                       <ExternalLink className="w-4 h-4" />
-                      Abrir WhatsApp
+                      <span>Abrir WhatsApp</span>
                     </motion.a>
                   </motion.div>
                 )}
               </AnimatePresence>
             </motion.div>
+
+            {isMobile && (
+              <div className="fixed bottom-0 left-0 right-0 bg-[var(--bg-primary)]/95 backdrop-blur-sm border-t border-[var(--border-primary)] pb-safe px-4 py-3" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+                <div className="max-w-md mx-auto flex items-center justify-center gap-2 text-xs text-[var(--text-secondary)]">
+                  {questions.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index < currentQuestion
+                          ? 'bg-sky'
+                          : index === currentQuestion && step === 'questions'
+                          ? 'bg-sky animate-pulse'
+                          : 'bg-[var(--border-primary)]'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
           </motion.div>
         </>
       )}

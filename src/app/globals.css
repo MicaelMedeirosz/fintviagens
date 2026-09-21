@@ -140,6 +140,14 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(30px);
     border: 1px solid var(--glass-strong-border);
   }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
 }
 
 ::-webkit-scrollbar {
