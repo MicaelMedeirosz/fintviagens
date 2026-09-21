@@ -18,6 +18,7 @@ import Stats from './Stats'
 import Pricing from './Pricing'
 import CTA from './CTA'
 import Footer from './Footer'
+import ApprovalPopup from './ApprovalPopup'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -57,6 +58,7 @@ export default function Home() {
       <Pricing />
       <CTA />
       <Footer />
+      <ApprovalPopup />
     </>
   )
 }
