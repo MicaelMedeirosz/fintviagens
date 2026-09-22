@@ -306,7 +306,7 @@ export default function Hero({ onPackageQuoteClick }: HeroProps) {
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[560px]">
               {packageDestinations.map((pkg, i) => (
-                <PackageCard key={pkg.id} pkg={pkg} delay={i * 0.08} onQuoteClick={onPackageQuoteClick} />
+                <PackageCard key={pkg.id} pkg={pkg} delay={i * 0.08} priority={i < 2} onQuoteClick={onPackageQuoteClick} />
               ))}
             </div>
 

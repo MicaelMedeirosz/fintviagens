@@ -1,9 +1,49 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Star, X, Expand } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+
+function LazyVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '300px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref} className="w-full h-full">
+      {inView ? (
+        <video
+          src={src}
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+        />
+      ) : (
+        <div className="w-full h-full bg-[var(--bg-secondary)]" />
+      )}
+    </div>
+  )
+}
 
 function TestimonialCard({
 testimonial,
@@ -74,21 +114,15 @@ return (
       <div className="relative aspect-[3/4] w-full max-w-xs rounded-xl overflow-hidden bg-[var(--bg-secondary)]/50 cursor-pointer group"
         onClick={() => isVideo && onOpenVideo(testimonial.media!)}>
         {testimonial.mediaType === 'video' ? (
-          <video
-            src={testimonial.media}
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
+          <LazyVideo src={testimonial.media!} />
         ) : (
-          <img
-            src={testimonial.media}
+          <Image
+            src={testimonial.media!}
             alt={testimonial.name || 'Depoimento'}
+            width={800}
+            height={1066}
             className="w-full h-full object-cover"
-            loading="lazy"
+            sizes="(max-width: 640px) 90vw, 400px"
           />
         )}
         {isVideo && (

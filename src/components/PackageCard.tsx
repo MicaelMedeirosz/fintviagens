@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { packageDestinations } from '@/lib/packageDestinations'
@@ -7,6 +8,7 @@ import { packageDestinations } from '@/lib/packageDestinations'
 interface PackageCardProps {
   pkg: typeof packageDestinations[0]
   delay?: number
+  priority?: boolean
   onQuoteClick?: (pkg: typeof packageDestinations[0]) => void
 }
 
@@ -15,7 +17,7 @@ const scrollToQuote = () => {
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 
-export default function PackageCard({ pkg, delay = 0, onQuoteClick }: PackageCardProps) {
+export default function PackageCard({ pkg, delay = 0, priority = false, onQuoteClick }: PackageCardProps) {
   const { t } = useLanguage()
 
   const handleClick = (e: React.MouseEvent) => {
@@ -44,11 +46,15 @@ export default function PackageCard({ pkg, delay = 0, onQuoteClick }: PackageCar
     >
       <div className="relative h-full flex flex-col">
         <div className="relative flex-[65%] overflow-hidden">
-          <img
+          <Image
             src={pkg.image}
             alt={`Pacote para ${pkg.city}, ${pkg.country}`}
+            width={1200}
+            height={900}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
+            loading={priority ? undefined : 'lazy'}
+            priority={priority}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 400px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)]/95 via-[var(--bg-primary)]/60 to-transparent" />
           
