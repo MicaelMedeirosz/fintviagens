@@ -1,4 +1,10 @@
-import sharp from 'sharp'
+let sharp
+try {
+  sharp = (await import('sharp')).default
+} catch {
+  console.error('Erro: sharp nao instalado. Rode "npm i -D sharp" antes de comprimir imagens.')
+  process.exit(1)
+}
 import { readdir, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 
