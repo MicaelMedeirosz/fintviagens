@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, XCircle, AlertCircle, ChevronRight, MessageSquare, ExternalLink } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -16,9 +16,17 @@ interface Answers {
   residence: boolean | null
 }
 
-export default function ApprovalPopup() {
-  const { t } = useLanguage()
-  const [isOpen, setIsOpen] = useState(false)
+export interface ApprovalPopupHandle {
+   open: () => void
+}
+
+const ApprovalPopup = React.forwardRef<ApprovalPopupHandle, {}>(function ApprovalPopup(_, ref) {
+   const { t } = useLanguage()
+   const [isOpen, setIsOpen] = useState(false)
+
+   React.useImperativeHandle(ref, () => ({
+     open: () => setIsOpen(true),
+   }))
   const [step, setStep] = useState<Step>('welcome')
   const [answers, setAnswers] = useState<Answers>({
     permit: null,
@@ -46,6 +54,13 @@ export default function ApprovalPopup() {
   }, [])
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(true)
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
     if (isOpen) {
       previousOverflow.current = document.body.style.overflow
       document.body.style.overflow = 'hidden'
@@ -55,12 +70,7 @@ export default function ApprovalPopup() {
     }
   }, [isOpen])
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(true)
-    }, 3000)
-    return () => clearTimeout(timer)
-  }, [])
+
 
   const handleAnswer = (key: keyof Answers, value: boolean | string) => {
     setAnswers(prev => ({ ...prev, [key]: value }))
@@ -220,24 +230,24 @@ ${TRACKING_CODE}`
                     transition={{ duration: 0.3 }}
                   >
                     <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 id="approval-title" className="text-xl font-bold text-[var(--text-primary)] mb-1">
-                          {t('approval_popup_title')}
-                        </h3>
-                        <p className="text-sm text-[var(--text-secondary)]">
-                          {t('approval_popup_subtitle')}
-                        </p>
-                      </div>
-                      <motion.button
-                        onClick={() => setIsOpen(false)}
-                        className="p-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] rounded-xl transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        aria-label="Fechar"
-                      >
-                        <XCircle className="w-6 h-6" />
-                      </motion.button>
-                    </div>
+                       <div>
+                         <h3 id="approval-title" className="text-xl font-bold text-[var(--text-primary)] mb-1">
+                           {t('approval_popup_title')}
+                         </h3>
+                         <p className="text-sm text-[var(--text-secondary)]">
+                           {t('approval_popup_subtitle')}
+                         </p>
+                       </div>
+                       <motion.button
+                         onClick={() => setIsOpen(false)}
+                         className="p-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] rounded-xl transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                         whileHover={{ scale: 1.1 }}
+                         whileTap={{ scale: 0.95 }}
+                         aria-label="Fechar"
+                       >
+                         <XCircle className="w-6 h-6" />
+                       </motion.button>
+                     </div>
 
                     <motion.button
                       onClick={() => setStep('questions')}
@@ -273,18 +283,18 @@ ${TRACKING_CODE}`
                           {questions[currentQuestion].label}
                         </h3>
                       </div>
-                      <motion.button
-                        onClick={() => setIsOpen(false)}
-                        className="p-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] rounded-xl transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        aria-label="Fechar"
-                      >
-                        <XCircle className="w-6 h-6" />
-                      </motion.button>
-                    </div>
+                       <motion.button
+                         onClick={() => setIsOpen(false)}
+                         className="p-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] rounded-xl transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                         whileHover={{ scale: 1.1 }}
+                         whileTap={{ scale: 0.95 }}
+                         aria-label="Fechar"
+                       >
+                         <XCircle className="w-6 h-6" />
+                       </motion.button>
+                     </div>
 
-                    <div className="space-y-4">
+                     <div className="space-y-4">
                       {questions[currentQuestion].type === 'boolean' && (
                         <div className="grid grid-cols-2 gap-3">
                           <motion.button
@@ -395,12 +405,12 @@ ${TRACKING_CODE}`
                       Tentar novamente
                     </motion.button>
                     <motion.button
-                      onClick={() => setIsOpen(false)}
-                      className="w-full mt-3 px-6 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium transition-colors min-h-[48px]"
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Fechar
-                    </motion.button>
+                       onClick={() => setIsOpen(false)}
+                       className="w-full mt-3 px-6 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium transition-colors min-h-[48px]"
+                       whileTap={{ scale: 0.98 }}
+                     >
+                       Fechar
+                     </motion.button>
                   </motion.div>
                 )}
 
@@ -466,6 +476,8 @@ ${TRACKING_CODE}`
           </motion.div>
         </>
       )}
-    </AnimatePresence>
-  )
-}
+     </AnimatePresence>
+   )
+})
+
+export default ApprovalPopup

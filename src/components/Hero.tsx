@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2, Plane } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -89,12 +89,13 @@ const scrollToQuote = () => {
 }
 
 interface HeroProps {
-  onPackageQuoteClick?: (pkg: typeof packageDestinations[0]) => void
+   onPackageQuoteClick?: (pkg: typeof packageDestinations[0]) => void
+   onApprovalClick?: () => void
 }
 
-export default function Hero({ onPackageQuoteClick }: HeroProps) {
-  const { t } = useLanguage()
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+export default function Hero({ onPackageQuoteClick, onApprovalClick }: HeroProps) {
+   const { t } = useLanguage()
+   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -264,17 +265,15 @@ export default function Hero({ onPackageQuoteClick }: HeroProps) {
                 {t('hero_cta_primary')}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </motion.a>
-              <motion.a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 px-8 py-4 glass-strong text-lg font-medium rounded-full hover:bg-[var(--glass-strong-bg)] transition-all border border-[var(--border-primary)]"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <img src="/icons/whatsapp.svg" alt="WhatsApp" className="w-5 h-5" />
-                +41 79 895 5348
-              </motion.a>
+               <motion.button
+                 onClick={onApprovalClick}
+                 className="flex items-center justify-center gap-3 px-8 py-4 bg-sky text-navy font-semibold text-lg rounded-full hover:bg-sky/90 transition-all shadow-xl shadow-sky/30"
+                 whileHover={{ scale: 1.02, y: -2 }}
+                 whileTap={{ scale: 0.98 }}
+               >
+                 {t('approval_cta')}
+                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+               </motion.button>
             </motion.div>
 
             <motion.div
@@ -324,25 +323,25 @@ export default function Hero({ onPackageQuoteClick }: HeroProps) {
         </div>
       </div>
 
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-secondary)] text-sm"
-        initial={{ opacity: 0, y: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ 
-          opacity: { delay: 1.2, duration: 0.8 },
-          y: { duration: 2, repeat: Infinity }
-        }}
-      >
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="3" y="3" width="18" height="18" rx="4" />
-          <path d="M12 8v8" />
-          <path d="M8 12h8" />
-        </svg>
-        <span>{t('hero_explore')}</span>
-      </motion.div>
-    </section>
-  )
-}
+       <motion.div
+         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-secondary)] text-sm"
+         initial={{ opacity: 0, y: 0 }}
+         animate={{ opacity: 1, y: [0, 10, 0] }}
+         transition={{ 
+           opacity: { delay: 1.2, duration: 0.8 },
+           y: { duration: 2, repeat: Infinity }
+         }}
+       >
+         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+           <rect x="3" y="3" width="18" height="18" rx="4" />
+           <path d="M12 8v8" />
+           <path d="M8 12h8" />
+         </svg>
+         <span>{t('hero_explore')}</span>
+       </motion.div>
+     </section>
+   )
+ }
 
 interface Particle {
   x: number
