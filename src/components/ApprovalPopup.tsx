@@ -437,18 +437,16 @@ ${TRACKING_CODE}`
                     <p className="text-[var(--text-secondary)] mb-6">
                       {t('approval_redirecting')}
                     </p>
-                    <motion.a
-                      href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-sky text-navy font-bold rounded-xl hover:bg-sky/90 transition-all shadow-lg shadow-sky/30 min-h-[48px] min-w-[200px]"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <MessageSquare className="w-5 h-5" />
-                      <ExternalLink className="w-4 h-4" />
-                      <span>Abrir WhatsApp</span>
-                    </motion.a>
+                    <motion.button
+                       onClick={() => openWhatsApp(answers)}
+                       className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-sky text-navy font-bold rounded-xl hover:bg-sky/90 transition-all shadow-lg shadow-sky/30 min-h-[48px] min-w-[200px]"
+                       whileHover={{ scale: 1.02 }}
+                       whileTap={{ scale: 0.98 }}
+                     >
+                       <MessageSquare className="w-5 h-5" />
+                       <ExternalLink className="w-4 h-4" />
+                       <span>Abrir WhatsApp</span>
+                     </motion.button>
                   </motion.div>
                 )}
               </AnimatePresence>
