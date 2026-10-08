@@ -169,7 +169,7 @@ return (
       onClick={onClose}
     />
     <motion.div
-      className="relative w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl"
+      className="relative h-[85vh] max-h-[85vh] aspect-[9/16] bg-black rounded-xl overflow-hidden shadow-2xl"
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.9, opacity: 0 }}
@@ -195,24 +195,104 @@ return (
 )
 }
 
+const AUTOPLAY_PX_PER_SEC = 40
+const RESUME_DELAY_MS = 1500
+
 export default function Testimonials() {
 const { t } = useLanguage()
 const [openVideo, setOpenVideo] = useState<{ src: string } | null>(null)
 const scrollContainerRef = useRef<HTMLDivElement>(null)
+const pausedRef = useRef(false)
+const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+const rafRef = useRef<number | null>(null)
+const lastTimeRef = useRef<number | null>(null)
+const isDraggingRef = useRef(false)
 
 const handleOpenVideo = (src: string) => {
   setOpenVideo({ src })
-  if (scrollContainerRef.current) {
-    scrollContainerRef.current.style.animationPlayState = 'paused'
-  }
+  pausedRef.current = true
 }
 
 const handleCloseVideo = () => {
   setOpenVideo(null)
-  if (scrollContainerRef.current) {
-    scrollContainerRef.current.style.animationPlayState = 'running'
+  pausedRef.current = false
+}
+
+const pauseAutoplay = () => {
+  pausedRef.current = true
+  if (resumeTimeoutRef.current) {
+    clearTimeout(resumeTimeoutRef.current)
+    resumeTimeoutRef.current = null
   }
 }
+
+const scheduleResume = () => {
+  if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+  resumeTimeoutRef.current = setTimeout(() => {
+    if (!isDraggingRef.current) pausedRef.current = false
+  }, RESUME_DELAY_MS)
+}
+
+useEffect(() => {
+  const el = scrollContainerRef.current
+  if (!el) return
+
+  const tick = (time: number) => {
+    if (lastTimeRef.current === null) lastTimeRef.current = time
+    const delta = time - lastTimeRef.current
+    lastTimeRef.current = time
+
+    if (!pausedRef.current && !isDraggingRef.current) {
+      const setWidth = el.scrollWidth / 2
+      let next = el.scrollLeft + (AUTOPLAY_PX_PER_SEC * delta) / 1000
+      if (setWidth > 0 && next >= setWidth) next -= setWidth
+      el.scrollLeft = next
+    }
+
+    rafRef.current = requestAnimationFrame(tick)
+  }
+
+  rafRef.current = requestAnimationFrame(tick)
+  return () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+  }
+}, [])
+
+useEffect(() => {
+  const el = scrollContainerRef.current
+  if (!el) return
+
+  const normalizeLoop = () => {
+    const setWidth = el.scrollWidth / 2
+    if (setWidth <= 0) return
+    if (el.scrollLeft >= setWidth) el.scrollLeft -= setWidth
+    else if (el.scrollLeft < 0) el.scrollLeft += setWidth
+  }
+
+  const handlePointerDown = () => {
+    isDraggingRef.current = true
+    pauseAutoplay()
+  }
+  const handlePointerUp = () => {
+    isDraggingRef.current = false
+    normalizeLoop()
+    scheduleResume()
+  }
+  const handleScroll = () => {
+    if (isDraggingRef.current) normalizeLoop()
+  }
+
+  el.addEventListener('pointerdown', handlePointerDown)
+  window.addEventListener('pointerup', handlePointerUp)
+  el.addEventListener('scroll', handleScroll, { passive: true })
+
+  return () => {
+    el.removeEventListener('pointerdown', handlePointerDown)
+    window.removeEventListener('pointerup', handlePointerUp)
+    el.removeEventListener('scroll', handleScroll)
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+  }
+}, [])
 
 const testimonials = [
 {
@@ -306,32 +386,33 @@ return (
       </motion.div>
 
       <div className="relative">
-        <div className="overflow-hidden" ref={scrollContainerRef}>
-          <div
-            className="flex animate-scroll"
-            style={{ width: 'max-content' }}
-          >
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                className="w-[350px] sm:w-[400px] flex-shrink-0 px-4"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-              >
-                <TestimonialCard testimonial={testimonial} onOpenVideo={handleOpenVideo} />
-              </motion.div>
-            ))}
+        <div
+          ref={scrollContainerRef}
+          className="flex overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing"
+          style={{ touchAction: 'pan-x' }}
+          onMouseEnter={pauseAutoplay}
+          onMouseLeave={scheduleResume}
+        >
+          {testimonials.map((testimonial, index) => (
+            <motion.div
+              key={index}
+              className="w-[350px] sm:w-[400px] flex-shrink-0 px-4"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <TestimonialCard testimonial={testimonial} onOpenVideo={handleOpenVideo} />
+            </motion.div>
+          ))}
 
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index + 100}
-                className="w-[350px] sm:w-[400px] flex-shrink-0 px-4"
-              >
-                <TestimonialCard testimonial={testimonial} onOpenVideo={handleOpenVideo} />
-              </motion.div>
-            ))}
-          </div>
+          {testimonials.map((testimonial, index) => (
+            <motion.div
+              key={index + 100}
+              className="w-[350px] sm:w-[400px] flex-shrink-0 px-4"
+            >
+              <TestimonialCard testimonial={testimonial} onOpenVideo={handleOpenVideo} />
+            </motion.div>
+          ))}
         </div>
 
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[var(--bg-primary)] to-transparent pointer-events-none" />
@@ -344,25 +425,6 @@ return (
       onClose={handleCloseVideo}
       videoSrc={openVideo?.src || ''}
     />
-
-    <style jsx global>{`
-      @keyframes scroll {
-        0% {
-          transform: translateX(0);
-        }
-        100% {
-          transform: translateX(-50%);
-        }
-      }
-
-      .animate-scroll {
-        animation: scroll 30s linear infinite;
-      }
-
-      .animate-scroll:hover {
-        animation-play-state: paused;
-      }
-    `}</style>
   </section>
 
 )
