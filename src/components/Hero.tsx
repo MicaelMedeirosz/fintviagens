@@ -96,6 +96,16 @@ interface HeroProps {
 export default function Hero({ onPackageQuoteClick, onApprovalClick }: HeroProps) {
    const { t } = useLanguage()
    const canvasRef = useRef<HTMLCanvasElement>(null)
+   const carouselRef = useRef<HTMLDivElement>(null)
+   const [activeCard, setActiveCard] = useState(0)
+
+  const handleCarouselScroll = () => {
+    const el = carouselRef.current
+    if (!el) return
+    const cardWidth = el.scrollWidth / packageDestinations.length
+    const index = Math.round(el.scrollLeft / cardWidth)
+    setActiveCard(Math.min(index, packageDestinations.length - 1))
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -223,7 +233,7 @@ export default function Hero({ onPackageQuoteClick, onApprovalClick }: HeroProps
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-navy/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />
 
       <div className="relative max-w-7xl mx-auto px-6 py-32 pt-40">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -303,9 +313,29 @@ export default function Hero({ onPackageQuoteClick, onApprovalClick }: HeroProps
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[560px]">
+            <div
+              ref={carouselRef}
+              onScroll={handleCarouselScroll}
+              className="flex sm:grid sm:grid-cols-2 gap-4 overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-hide"
+            >
               {packageDestinations.map((pkg, i) => (
-                <PackageCard key={pkg.id} pkg={pkg} delay={i * 0.08} priority={i < 2} onQuoteClick={onPackageQuoteClick} />
+                <div
+                  key={pkg.id}
+                  className="shrink-0 grow-0 basis-[calc(100vw-72px)] sm:basis-auto snap-center sm:snap-align-none"
+                >
+                  <PackageCard pkg={pkg} delay={i * 0.08} priority={i < 2} onQuoteClick={onPackageQuoteClick} />
+                </div>
+              ))}
+            </div>
+
+            <div className="flex sm:hidden items-center justify-center gap-2 mt-4">
+              {packageDestinations.map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === activeCard ? 'w-6 bg-sky' : 'w-1.5 bg-[var(--border-primary)]'
+                  }`}
+                />
               ))}
             </div>
 

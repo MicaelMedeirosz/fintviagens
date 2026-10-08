@@ -31,7 +31,7 @@ export default function PackageCard({ pkg, delay = 0, priority = false, onQuoteC
 
   return (
     <motion.article
-      className="group relative rounded-2xl overflow-hidden glass-strong cursor-pointer"
+      className="group relative rounded-2xl overflow-hidden glass-strong cursor-pointer h-[440px] sm:h-[460px]"
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, delay, ease: 'easeOut' }}
