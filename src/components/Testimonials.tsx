@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Star, X, Expand } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import type { TranslationKey } from '@/lib/translations'
 
 function LazyVideo({ src }: { src: string }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -294,63 +295,17 @@ useEffect(() => {
   }
 }, [])
 
+const TESTIMONIAL_COUNT = 23
+
 const testimonials = [
-{
-name: t('testimonial_1_name'),
-location: t('testimonial_1_location'),
-text: t('testimonial_1_text'),
-rating: 5,
-media: t('testimonial_1_media'),
-mediaType: t('testimonial_1_media_type') as 'image' | 'video' | 'none',
-},
-{
-name: t('testimonial_2_name'),
-location: t('testimonial_2_location'),
-text: t('testimonial_2_text'),
-rating: 5,
-media: t('testimonial_2_media'),
-mediaType: t('testimonial_2_media_type') as 'image' | 'video' | 'none',
-},
-{
-name: t('testimonial_3_name'),
-location: t('testimonial_3_location'),
-text: t('testimonial_3_text'),
-rating: 5,
-media: t('testimonial_3_media'),
-mediaType: t('testimonial_3_media_type') as 'image' | 'video' | 'none',
-},
-{
-name: t('testimonial_4_name'),
-location: t('testimonial_4_location'),
-text: t('testimonial_4_text'),
-rating: 5,
-media: t('testimonial_4_media'),
-mediaType: t('testimonial_4_media_type') as 'image' | 'video' | 'none',
-},
-{
-name: t('testimonial_5_name'),
-location: t('testimonial_5_location'),
-text: t('testimonial_5_text'),
-rating: 5,
-media: t('testimonial_5_media'),
-mediaType: t('testimonial_5_media_type') as 'image' | 'video' | 'none',
-},
-{
-name: t('testimonial_6_name'),
-location: t('testimonial_6_location'),
-text: t('testimonial_6_text'),
-rating: 5,
-media: t('testimonial_6_media'),
-mediaType: t('testimonial_6_media_type') as 'image' | 'video' | 'none',
-},
-{
-name: t('testimonial_7_name'),
-location: t('testimonial_7_location'),
-text: t('testimonial_7_text'),
-rating: 5,
-media: t('testimonial_7_media'),
-mediaType: t('testimonial_7_media_type') as 'image' | 'video' | 'none',
-},
+...Array.from({ length: TESTIMONIAL_COUNT }, (_, i) => {
+  const n = i + 1
+  return {
+    rating: 5,
+    media: t(`testimonial_${n}_media` as TranslationKey),
+    mediaType: t(`testimonial_${n}_media_type` as TranslationKey) as 'image' | 'video' | 'none',
+  }
+}),
 {
 isCta: true,
 ctaText: t('test_cta_text'),
