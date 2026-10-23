@@ -354,9 +354,9 @@ export default function Hero({ onPackageQuoteClick, onApprovalClick }: HeroProps
       </div>
 
        <motion.div
-         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-secondary)] text-sm"
-         initial={{ opacity: 0, y: 0 }}
-         animate={{ opacity: 1, y: [0, 10, 0] }}
+         className="absolute bottom-10 left-1/2 flex flex-col items-center gap-2 text-[var(--text-secondary)] text-sm"
+         initial={{ opacity: 0, y: 0, x: '-50%' }}
+         animate={{ opacity: 1, y: [0, 10, 0], x: '-50%' }}
          transition={{ 
            opacity: { delay: 1.2, duration: 0.8 },
            y: { duration: 2, repeat: Infinity }

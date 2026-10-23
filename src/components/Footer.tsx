@@ -27,7 +27,7 @@ export default function Footer() {
     ],
     [t('footer_contact')]: [
       { label: t('footer_whatsapp'), href: `https://wa.me/41798955348?text=${encodeURIComponent(t('wa_intro') + ' ' + TRACKING_CODE)}` },
-      { label: t('footer_phone'), href: 'tel:+41793919828' },
+      { label: t('footer_phone'), href: 'tel:+410444320606' },
       { label: t('footer_email'), href: 'mailto:info@fintviagens.ch' },
       { label: t('footer_address'), href: '#contato' },
       { label: t('footer_hours_week'), href: '#contato' },

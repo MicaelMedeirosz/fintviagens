@@ -386,7 +386,7 @@ ${TRACKING_CODE}`
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <p className="text-[var(--text-secondary)] text-sm">
-            {t('cta_phone_hint')} <a href="tel:+41 079 391 98 28" className="text-sky hover:underline font-medium">+41 079 391 98 28</a> • 
+            {t('cta_phone_hint')} <a href="tel:+410444320606" className="text-sky hover:underline font-medium">+41 044 432 0606</a> •
             Seg-Sex 08:00-20:00 • Sáb 09:00-16:00
           </p>
         </motion.div>
