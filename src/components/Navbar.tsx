@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import LanguageSelector from './LanguageSelector'
@@ -14,6 +15,7 @@ const navItems = [
   { key: 'nav_destinations' as const, id: 'destinos' },
   { key: 'nav_features' as const, id: 'vantagens' },
   { key: 'nav_testimonials' as const, id: 'depoimentos' },
+  { key: 'nav_cruzeiros' as const, href: '/cruzeiros' },
   { key: 'nav_contact' as const, id: 'contato' },
 ]
 
@@ -48,15 +50,23 @@ export default function Navbar() {
         </motion.a>
 
         <div className="hidden md:flex items-center gap-10">
-          {navItems.map((item) => (
-            <motion.a
-              key={item.key}
-              href={`#${item.id}`}
-              className="text-sm font-medium text-[var(--text-primary)]/80 hover:text-sky transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-sky after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left transition-transform duration-300"
-            >
-              {t(item.key)}
-            </motion.a>
-          ))}
+          {navItems.map((item) => {
+            const isInternalRoute = !!item.href
+            return (
+              <Link
+                key={item.key}
+                href={item.href || `#${item.id}`}
+                passHref
+                legacyBehavior
+              >
+                <motion.a
+                  className="text-sm font-medium text-[var(--text-primary)]/80 hover:text-sky transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-sky after:scale-x-0 after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left transition-transform duration-300"
+                >
+                  {t(item.key)}
+                </motion.a>
+              </Link>
+            )
+          })}
         </div>
 
         <div className="flex items-center gap-3">

@@ -14,8 +14,12 @@ export const translations = {
     nav_features: 'Vantagens',
     nav_testimonials: 'Depoimentos',
     nav_contact: 'Contato',
+    nav_cruzeiros: 'Cruzeiros',
     nav_cta: 'Cotar Agora',
     nav_whatsapp: 'WhatsApp',
+
+    cruzeiros_title: 'Catálogos de Cruzeiros',
+    cruzeiros_subtitle: 'Baixe os catálogos da temporada',
 
     hero_badge: 'Residente na Suíça?',
     hero_title_1: 'Passagens para o Mundo',
@@ -286,7 +290,11 @@ export const translations = {
     nav_testimonials: 'Bewertungen',
     nav_contact: 'Kontakt',
     nav_cta: 'Jetzt anfragen',
+    nav_cruzeiros: 'Kreuzfahrten',
     nav_whatsapp: 'WhatsApp',
+
+    cruzeiros_title: 'Kreuzfahrtkataloge',
+    cruzeiros_subtitle: 'Kataloge der Saison herunterladen',
 
     hero_badge: 'Wohnhaft in der Schweiz?',
     hero_title_1: 'Flüge weltweit',
@@ -556,7 +564,11 @@ export const translations = {
     nav_testimonials: 'Testimonials',
     nav_contact: 'Contact',
     nav_cta: 'Get a Quote',
+    nav_cruzeiros: 'Cruises',
     nav_whatsapp: 'WhatsApp',
+
+    cruzeiros_title: 'Cruise Catalogs',
+    cruzeiros_subtitle: 'Download season catalogs',
 
     hero_badge: 'Swiss Resident?',
     hero_title_1: 'Flights Worldwide',
@@ -826,7 +838,11 @@ export const translations = {
     nav_testimonials: 'Testimonios',
     nav_contact: 'Contacto',
     nav_cta: 'Cotizar ahora',
+    nav_cruzeiros: 'Cruceros',
     nav_whatsapp: 'WhatsApp',
+
+    cruzeiros_title: 'Catálogos de Cruceros',
+    cruzeiros_subtitle: 'Descargar catálogos de temporada',
 
     hero_badge: '¿Residente en Suiza?',
     hero_title_1: 'Vuelos al mundo',
