@@ -1,6 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import CruzeiroPromoCard from './CruzeiroPromoCard'
 import { cruzeiroPromocoes } from '@/lib/cruzeiroPromocoes'
@@ -34,6 +36,25 @@ export default function CruzeiroPromocoes() {
             <CruzeiroPromoCard key={promo.id} promo={promo} delay={index * 0.1} />
           ))}
         </div>
+
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <Link href="/cruzeiros" passHref legacyBehavior>
+            <motion.a
+              className="relative inline-flex items-center justify-center gap-2 px-10 py-4 bg-sky text-navy font-bold text-lg rounded-full hover:bg-sky/90 transition-all shadow-xl shadow-sky/30"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Confira catálogo completo
+              <ArrowRight className="w-5 h-5" />
+            </motion.a>
+          </Link>
+        </motion.div>
       </div>
     </section>
   )
