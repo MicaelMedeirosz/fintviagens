@@ -7,15 +7,22 @@ import { ArrowRight } from 'lucide-react'
 import LanguageSelector from './LanguageSelector'
 import ThemeToggle from './ThemeToggle'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { TranslationKey } from '@/lib/translations'
 
 const TRACKING_CODE = '#FINT-SITE-NAVBAR'
 
-const navItems = [
+interface NavItem {
+  key: TranslationKey
+  id?: string
+  href?: string
+}
+
+const navItems: NavItem[] = [
   { key: 'nav_how' as const, id: 'como-funciona' },
   { key: 'nav_destinations' as const, id: 'destinos' },
   { key: 'nav_features' as const, id: 'vantagens' },
   { key: 'nav_testimonials' as const, id: 'depoimentos' },
-  { key: 'nav_cruzeiros' as const, href: '/cruzeiros' },
+  { key: 'nav_cruzeiros' as const, id: 'promocoes-cruzeiro' },
   { key: 'nav_contact' as const, id: 'contato' },
 ]
 
@@ -51,7 +58,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-10">
           {navItems.map((item) => {
-            const isInternalRoute = !!item.href
+            const isInternalRoute = !!item.id || !!item.href
             return (
               <Link
                 key={item.key}
