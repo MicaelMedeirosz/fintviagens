@@ -23,7 +23,7 @@ export default function CruzeiroPromoCard({ promo, delay = 0 }: CruzeiroPromoCar
 
   return (
     <motion.article
-      className="group relative rounded-2xl overflow-hidden glass-strong cursor-pointer h-[440px] sm:h-[460px]"
+      className="group relative rounded-2xl overflow-hidden glass-strong cursor-pointer min-h-[420px] max-h-[460px]"
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, delay, ease: 'easeOut' }}
@@ -37,7 +37,7 @@ export default function CruzeiroPromoCard({ promo, delay = 0 }: CruzeiroPromoCar
       aria-label={`Promoção de cruzeiro ${promo.titulo}`}
     >
       <div className="relative h-full flex flex-col">
-        <div className="relative flex-[65%] overflow-hidden">
+        <div className="relative h-[260px] sm:h-[300px] overflow-hidden">
           <Image
             src={promo.image}
             alt={`Promoção de cruzeiro ${promo.titulo}`}
@@ -53,14 +53,9 @@ export default function CruzeiroPromoCard({ promo, delay = 0 }: CruzeiroPromoCar
               CRUZEIRO
             </span>
           </div>
-          <div className="absolute bottom-3 left-3 right-3">
-            <div className="inline-block px-3 py-1.5 bg-black/70 backdrop-blur-sm rounded-full">
-              <p className="text-sm font-medium text-white">{promo.titulo}</p>
-            </div>
-          </div>
         </div>
 
-        <div className="flex-[35%] flex flex-col justify-between p-3 bg-[var(--bg-secondary)]/50 backdrop-blur-sm border-t border-[var(--border-primary)]">
+        <div className="flex flex-col justify-between p-3 bg-[var(--bg-secondary)]/50 backdrop-blur-sm border-t border-[var(--border-primary)]">
           <div className="pt-1 border-t border-[var(--border-primary)] space-y-2">
             <motion.button
               onClick={handleClick}
