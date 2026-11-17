@@ -61,19 +61,15 @@ export default function CruzeiroPromoCard({ promo, delay = 0 }: CruzeiroPromoCar
         </div>
 
         <div className="flex-[35%] flex flex-col justify-between p-3 bg-[var(--bg-secondary)]/50 backdrop-blur-sm border-t border-[var(--border-primary)]">
-          <div>
-            <p className="text-sm text-[var(--text-secondary)]">{promo.subtitulo}</p>
-          </div>
-
           <div className="pt-1 border-t border-[var(--border-primary)] space-y-2">
             <motion.button
               onClick={handleClick}
-              className="w-full px-6 py-3 bg-sky text-navy font-semibold rounded-full shadow-lg shadow-sky/30 hover:bg-sky/90 transition-all min-h-[48px] focus:outline-none focus:ring-2 focus:ring-sky focus:ring-offset-2 focus:ring-offset-[var(--bg-primary)]"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-sky text-navy font-semibold rounded-full shadow-lg shadow-sky/30 hover:bg-sky/90 transition-all min-h-[48px] focus:outline-none focus:ring-2 focus:ring-sky focus:ring-offset-2 focus:ring-offset-[var(--bg-primary)]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {t('promocao_falar_consultor') || 'Falar com consultor'}
-              <ArrowRight className="w-4 h-4 ml-1" />
+              <ArrowRight className="w-4 h-4" />
             </motion.button>
           </div>
         </div>
