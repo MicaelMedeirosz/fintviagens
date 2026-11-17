@@ -20,6 +20,9 @@ export const translations = {
 
     cruzeiros_title: 'Catálogos de Cruzeiros',
     cruzeiros_subtitle: 'Baixe os catálogos da temporada',
+    promocoes_cruzeiro_title: 'Promoções de Cruzeiros',
+    promocoes_cruzeiro_subtitle: 'Ofertas especiais para viajar de cruzeiro',
+    promocao_falar_consultor: 'Falar com consultor',
 
     hero_badge: 'Residente na Suíça?',
     hero_title_1: 'Passagens para o Mundo',
@@ -295,6 +298,9 @@ export const translations = {
 
     cruzeiros_title: 'Kreuzfahrtkataloge',
     cruzeiros_subtitle: 'Kataloge der Saison herunterladen',
+    promocoes_cruzeiro_title: 'Kreuzfahrt-Promotionen',
+    promocoes_cruzeiro_subtitle: 'Spezielle Angebote für Kreuzfahrten',
+    promocao_falar_consultor: 'Mit Berater sprechen',
 
     hero_badge: 'Wohnhaft in der Schweiz?',
     hero_title_1: 'Flüge weltweit',
@@ -569,6 +575,9 @@ export const translations = {
 
     cruzeiros_title: 'Cruise Catalogs',
     cruzeiros_subtitle: 'Download season catalogs',
+    promocoes_cruzeiro_title: 'Cruise Promotions',
+    promocoes_cruzeiro_subtitle: 'Special offers for cruise travel',
+    promocao_falar_consultor: 'Talk to consultant',
 
     hero_badge: 'Swiss Resident?',
     hero_title_1: 'Flights Worldwide',
@@ -843,6 +852,9 @@ export const translations = {
 
     cruzeiros_title: 'Catálogos de Cruceros',
     cruzeiros_subtitle: 'Descargar catálogos de temporada',
+    promocoes_cruzeiro_title: 'Promociones de Cruceros',
+    promocoes_cruzeiro_subtitle: 'Ofertas especiales para cruceros',
+    promocao_falar_consultor: 'Hablar con consultor',
 
     hero_badge: '¿Residente en Suiza?',
     hero_title_1: 'Vuelos al mundo',

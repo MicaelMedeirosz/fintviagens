@@ -12,6 +12,7 @@ import Hero from './Hero'
 import TrustBar from './TrustBar'
 import HowItWorks from './HowItWorks'
 import Destinations from './Destinations'
+import CruzeiroPromocoes from './CruzeiroPromocoes'
 import Features from './Features'
 import Testimonials from './Testimonials'
 import Stats from './Stats'
@@ -60,6 +61,7 @@ export default function Home() {
       <TrustBar />
       <HowItWorks />
       <Destinations />
+      <CruzeiroPromocoes />
       <Features />
       <Testimonials />
       <Stats />
